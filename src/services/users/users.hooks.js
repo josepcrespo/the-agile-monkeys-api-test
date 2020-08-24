@@ -10,7 +10,7 @@ const validateUserUpdate = require('../../hooks/validate-user-update');
 
 module.exports = {
   before: {
-    all: [],
+    all: [ checkPermissions({ roles: ['admin'] }) ],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
     create: [

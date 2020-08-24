@@ -5,7 +5,7 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  
+
   const users = sequelizeClient.define('users', {
   
     email: {
@@ -20,6 +20,9 @@ module.exports = function (app) {
     },
     githubId: {
       type: DataTypes.STRING
+    },
+    permissions: {
+      type: DataTypes.JSON
     }
   
   }, {
