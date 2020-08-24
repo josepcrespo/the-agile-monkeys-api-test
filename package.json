@@ -1,0 +1,20 @@
+{
+  "name": "the-agile-monkeys-api-test",
+  "version": "1.0.0",
+  "description": "A REST API to manage customer data for a small shop.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josepcrespo/the-agile-monkeys-api-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josepcrespo/the-agile-monkeys-api-test/issues"
+  },
+  "homepage": "https://github.com/josepcrespo/the-agile-monkeys-api-test#readme"
+}
