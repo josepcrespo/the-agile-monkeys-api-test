@@ -8,7 +8,10 @@ module.exports = (options = {}) => {
   return async context => {
     const { arguments } = context;
 
-    if ( !arguments.githubId && (!arguments.email || !arguments.password) ) {
+    if (
+        !arguments[0].githubId &&
+        (!arguments[0].email || !arguments[0].password)
+    ) {
       throw new BadRequest(
         'Please, provide an email and password.'
       );
