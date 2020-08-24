@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/josepcrespo/the-agile-monkeys-api-test/issues"
   },
-  "homepage": "https://github.com/josepcrespo/the-agile-monkeys-api-test#readme"
+  "homepage": "https://github.com/josepcrespo/the-agile-monkeys-api-test#readme",
+  "dependencies": {
+    "@feathersjs/feathers": "^4.5.8"
+  }
 }
