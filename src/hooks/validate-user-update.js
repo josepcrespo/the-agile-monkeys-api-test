@@ -19,6 +19,7 @@ module.exports = (options = {}) => {
     if (data.githubId !== undefined && !data.githubId) {
       throw new BadRequest('Please, provide a GitHub ID.');
     }
+    
     return context;
   };
 };

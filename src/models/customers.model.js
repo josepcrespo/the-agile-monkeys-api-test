@@ -5,26 +5,23 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
+
   const customers = sequelizeClient.define('customers', {
     name: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     surname: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     photo: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
+    },
+    createdById: {
+      type: DataTypes.INTEGER,
       allowNull: true
     },
-    createdBy: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    updatedBy: {
-      type: DataTypes.STRING,
-      allowNull: false
+    updatedById: {
+      type: DataTypes.INTEGER
     }
   }, {
     hooks: {
@@ -38,6 +35,19 @@ module.exports = function (app) {
   customers.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    const { users } = models;
+    customers.belongsTo(users, {
+      foreignKey: {
+        name: 'createdById',
+        allowNull: false
+      }
+    }); // Will add createdBy to customers model
+    customers.belongsTo(users, {
+      foreignKey: {
+        name: 'updatedById',
+        allowNull: true
+      }
+    }); // Will add updatedBy to customers model
   };
 
   return customers;
