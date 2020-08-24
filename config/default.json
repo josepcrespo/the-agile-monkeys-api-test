@@ -1,0 +1,39 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "srQYJ/778irJfcnMM26H5rhXQRs=",
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "redirect": "/",
+      "github": {
+        "key": "<github oauth key>",
+        "secret": "<github oauth secret>"
+      }
+    }
+  },
+  "mysql": "mysql://root:@localhost:3306/the_agile_monkeys_api_test"
+}
