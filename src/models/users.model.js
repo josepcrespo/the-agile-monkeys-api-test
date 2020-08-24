@@ -5,20 +5,22 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
+  
   const users = sequelizeClient.define('users', {
   
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
-  
-  
-    githubId: { type: DataTypes.STRING },
+    githubId: {
+      type: DataTypes.STRING
+    }
   
   }, {
     hooks: {
