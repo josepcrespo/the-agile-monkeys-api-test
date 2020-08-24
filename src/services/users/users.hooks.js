@@ -5,29 +5,31 @@ const {
 } = require('@feathersjs/authentication-local').hooks;
 
 const validateUserCreate = require('../../hooks/validate-user-create');
-
 const validateUserUpdate = require('../../hooks/validate-user-update');
+const checkPermissions = require('feathers-permissions');
+console.log(checkPermissions({ roles: [ 'admin', 'user' ] }));
 
 module.exports = {
   before: {
-    all: [ checkPermissions({ roles: ['admin'] }) ],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
+    all: [
+        authenticate('jwt'),
+        checkPermissions({ roles: [ 'admin' ] })
+    ],
+    find: [],
+    get: [],
     create: [
       hashPassword('password'),
       validateUserCreate()
     ],
     update: [
       hashPassword('password'),
-      authenticate('jwt'),
       validateUserUpdate()
     ],
     patch: [
       hashPassword('password'),
-      authenticate('jwt'),
       validateUserUpdate()
     ],
-    remove: [ authenticate('jwt') ]
+    remove: []
   },
 
   after: {
