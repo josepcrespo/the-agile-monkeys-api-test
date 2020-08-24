@@ -22,7 +22,7 @@ module.exports = function (app) {
       type: DataTypes.STRING
     },
     permissions: {
-      type: DataTypes.JSON
+      type: DataTypes.STRING
     }
   
   }, {
