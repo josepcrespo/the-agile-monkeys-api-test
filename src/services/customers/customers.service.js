@@ -62,9 +62,6 @@ module.exports = function (app) {
     (req, _res, next) => {
       const { method } = req;
       if (method === 'POST' || method === 'PATCH') {
-        console.log('BEFORE req');
-        console.log(req.body);
-        console.log('AFTER req');
         // If you want to filter the file based on the extension,
         // you can register a fileFilter using multer. And, to make it work,
         // transfer the received files to feathers.
@@ -88,4 +85,23 @@ module.exports = function (app) {
   const service = app.service('customers');
 
   service.hooks(hooks);
+
+  // https://github.com/alt3/sequelize-to-json-schemas#usage
+  const jsonSchemaManager = app.get('jsonSchemaManager');
+  const openApi3Strategy = app.get('openApi3Strategy');
+  const serviceSchema = jsonSchemaManager.generate(options.Model, openApi3Strategy);
+
+  // The Swagger definition with the help of `sequelize-to-json-schemas` package.
+  service.docs = {
+    description: 'Service to manage customers.',
+    definitions: {
+      'customers_list': {
+        $ref: '#/definitions/customers'
+      },
+      customers: serviceSchema
+    }
+  };
+
+  // Expose the Swagger definition.
+  app.use('/customers', service);
 };

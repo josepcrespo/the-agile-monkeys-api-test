@@ -6,11 +6,11 @@ const { BadRequest } = require('@feathersjs/errors');
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
-    const { arguments } = context;
+    const { data } = context;
 
     if (
-        !arguments[0].githubId &&
-        (!arguments[0].email || !arguments[0].password)
+        !data[0].githubId &&
+        (!data[0].email || !data[0].password)
     ) {
       throw new BadRequest(
         'Please, provide an email and password.'

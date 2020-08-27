@@ -16,4 +16,23 @@ module.exports = function (app) {
   const service = app.service('users');
 
   service.hooks(hooks);
+
+  // https://github.com/alt3/sequelize-to-json-schemas#usage
+  const jsonSchemaManager = app.get('jsonSchemaManager');
+  const openApi3Strategy = app.get('openApi3Strategy');
+  const serviceSchema = jsonSchemaManager.generate(options.Model, openApi3Strategy);
+
+  // The Swagger definition with the help of `sequelize-to-json-schemas` package.
+  service.docs = {
+    description: 'Service to manage users.',
+    definitions: {
+      'users_list': {
+        $ref: '#/definitions/users'
+      },
+      users: serviceSchema
+    }
+  };
+
+  // Expose the Swagger definition.
+  app.use('/users', service);
 };

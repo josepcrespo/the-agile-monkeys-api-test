@@ -9,7 +9,8 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 
-
+const swagger = require('feathers-swagger');
+const sequelizeToJsonSchemas = require('./sequelize-to-json-schemas');
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -37,8 +38,22 @@ app.use('/', express.static(app.get('public')));
 // Set up Plugins and providers
 app.configure(express.rest());
 
+// Set up for feathers-swagger
+// https://github.com/feathersjs-ecosystem/feathers-swagger#example-with-ui
+app.configure(swagger({
+  specs: {
+    docsPath: '/docs',
+    uiIndex: path.join(__dirname, 'swagger.html'),
+    info: {
+      title: 'The CRM service',
+      description: 'An API test built with Node.js, FeathersJS and more, for The Agile Monkeys team.',
+      version: '1.0.0',
+    },
+  }
+}));
 
 app.configure(sequelize);
+app.configure(sequelizeToJsonSchemas);
 
 
 // Configure other middleware (see `middleware/index.js`)

@@ -47,6 +47,7 @@
     "ignore": []
   },
   "dependencies": {
+    "@alt3/sequelize-to-json-schemas": "^0.3.50",
     "@feathersjs/authentication": "^4.5.8",
     "@feathersjs/authentication-local": "^4.5.8",
     "@feathersjs/authentication-oauth": "^4.5.8",
@@ -59,11 +60,13 @@
     "cors": "^2.8.5",
     "feathers-permissions": "^2.0.2",
     "feathers-sequelize": "^6.2.0",
+    "feathers-swagger": "^1.2.1",
     "helmet": "^3.23.3",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
     "serve-favicon": "^2.5.0",
+    "swagger-ui-dist": "^3.32.4",
     "winston": "^3.3.3"
   },
   "devDependencies": {

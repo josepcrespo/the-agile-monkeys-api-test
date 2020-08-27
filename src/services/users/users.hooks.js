@@ -7,7 +7,6 @@ const {
 const validateUserCreate = require('../../hooks/validate-user-create');
 const validateUserUpdate = require('../../hooks/validate-user-update');
 const checkPermissions = require('feathers-permissions');
-console.log(checkPermissions({ roles: [ 'admin', 'user' ] }));
 
 module.exports = {
   before: {
