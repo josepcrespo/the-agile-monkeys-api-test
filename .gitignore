@@ -109,3 +109,6 @@ $RECYCLE.BIN/
 # Others
 lib/
 data/
+
+# Customers photos
+public/images/customers/
