@@ -62,22 +62,19 @@ module.exports = function (app) {
     (req, _res, next) => {
       const { method } = req;
       if (method === 'POST' || method === 'PATCH') {
-        console.log('BEFORE req');
-        console.log(req.body);
-        console.log('AFTER req');
-        // If you want to filter the file based on the extension,
-        // you can register a fileFilter using multer. And, to make it work,
-        // transfer the received files to feathers.
-        req.feathers.file = req.file;
-
         // Transforming the request to the model shape
-        const body = [{
+        const body = {
           name: req.body.name,
-          surname: req.body.surname,
-          photo: req.file ? req.file.filename : null
-        }];
-        // TODO: test the PATCH method.
-        req.body = (method === 'POST') ? body : body[0];
+          surname: req.body.surname
+        };
+        if (req.file) {
+          // If you want to filter the file based on the extension,
+          // you can register a fileFilter using multer. And, to make it work,
+          // transfer the received files to feathers.
+          req.feathers.file = req.file;
+          body.photo = req.file.filename;
+        }
+        req.body = body;
       }
       next();
     },

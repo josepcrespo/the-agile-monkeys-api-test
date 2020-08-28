@@ -8,7 +8,10 @@ module.exports = (options = {}) => {
   return async context => {
     const { data } = context;
 
-    if (data.email !== undefined && !data.email) {
+    if (
+      data.email !== undefined && !data.email &&
+      (data.githubId === undefined || !data.githubId)
+    ) {
       throw new BadRequest('Please, provide an email address.');
     }
 

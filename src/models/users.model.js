@@ -22,7 +22,8 @@ module.exports = function (app) {
       type: DataTypes.STRING
     },
     permissions: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      defaultValue: 'user'
     }
   
   }, {

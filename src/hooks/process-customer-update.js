@@ -7,14 +7,8 @@ module.exports = (options = {}) => {
     // Get authenticated user
     const user = context.params.user;
 
-    //Extract Submitted Data
-    const { data } = context;
-
     // Add new Fields
-    context.data = {
-      ...data, // Preserve submitted data
-      updatedById: user.id
-    };
+    context.data.updatedById = user.id;
 
     return context;
   };
