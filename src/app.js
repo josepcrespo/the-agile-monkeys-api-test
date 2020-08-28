@@ -35,20 +35,41 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
+// Expose the `node_modules` to the public directory
+app.use(
+  '/third-party-code',
+  express.static(path.join(__dirname, '/../node_modules'))
+);
+
 // Set up Plugins and providers
 app.configure(express.rest());
 
 // Set up for feathers-swagger
 // https://github.com/feathersjs-ecosystem/feathers-swagger#example-with-ui
 app.configure(swagger({
-  specs: {
+    openApiVersion: 3,
     docsPath: '/docs',
-    uiIndex: path.join(__dirname, 'swagger.html'),
+    uiIndex: path.join(__dirname, '../public/docs/swagger-ui.html'),
+  specs: {
+    //docsPath: '/docs',
+    //uiIndex: path.join(__dirname, '../public/docs/swagger-ui.html'),
     info: {
-      title: 'The CRM service',
-      description: 'An API test built with Node.js, FeathersJS and more, for The Agile Monkeys team.',
-      version: '1.0.0',
+      title: 'API Test - CRM service docs',
+      description: 'An API test built with Node.js, FeathersJS and more,' +
+                   ' for The Agile Monkeys team.',
+      version: '1.0.0'
     },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer'
+        }
+      }
+    },
+    security: [{
+      BearerAuth: []
+    }]
   }
 }));
 

@@ -30,6 +30,14 @@ module.exports = function (app) {
         $ref: '#/definitions/users'
       },
       users: serviceSchema
+    },
+    securities: ['get', 'create', 'update', 'patch', 'remove'],
+    operations: {
+      find: {
+        security: [{
+          BearerAuth: []
+        }]
+      }
     }
   };
 

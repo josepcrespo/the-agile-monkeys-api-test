@@ -66,13 +66,14 @@
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
     "serve-favicon": "^2.5.0",
-    "swagger-ui-dist": "^3.32.4",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@mairu/swagger-ui-apikey-auth-form": "^1.0.1",
     "axios": "^0.20.0",
     "eslint": "^7.7.0",
     "jest": "^26.4.2",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "swagger-ui-dist": "^3.32.4"
   }
 }

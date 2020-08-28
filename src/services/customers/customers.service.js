@@ -99,6 +99,14 @@ module.exports = function (app) {
         $ref: '#/definitions/customers'
       },
       customers: serviceSchema
+    },
+    securities: ['get', 'create', 'update', 'patch', 'remove'],
+    operations: {
+      find: {
+        security: [{
+          BearerAuth: []
+        }]
+      }
     }
   };
 
