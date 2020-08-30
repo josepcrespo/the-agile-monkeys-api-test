@@ -8,7 +8,7 @@ module.exports = (options = {}) => {
     const user = context.params.user;
 
     // Add new Fields
-    context.data[0].createdById = user.id;
+    context.data.createdById = user.id;
 
     return context;
   };

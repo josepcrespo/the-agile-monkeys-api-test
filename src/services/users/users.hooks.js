@@ -7,28 +7,29 @@ const {
 const validateUserCreate = require('../../hooks/validate-user-create');
 const validateUserUpdate = require('../../hooks/validate-user-update');
 const checkPermissions = require('feathers-permissions');
+const checkUserGetPermissions = require('../../hooks/check-user-get-permissions');
 
 module.exports = {
   before: {
-    all: [
-        authenticate('jwt'),
-        checkPermissions({ roles: [ 'admin' ] })
-    ],
-    find: [],
-    get: [],
+    all: [ authenticate('jwt') ],
+    find: [ checkPermissions({ roles: [ 'admin' ] }) ],
+    get: [checkUserGetPermissions()],
     create: [
       hashPassword('password'),
+      checkPermissions({ roles: [ 'admin' ] }),
       validateUserCreate()
     ],
     update: [
       hashPassword('password'),
+      checkPermissions({ roles: [ 'admin' ] }),
       validateUserUpdate()
     ],
     patch: [
       hashPassword('password'),
+      checkPermissions({ roles: [ 'admin' ] }),
       validateUserUpdate()
     ],
-    remove: []
+    remove: [ checkPermissions({ roles: [ 'admin' ] }) ]
   },
 
   after: {
