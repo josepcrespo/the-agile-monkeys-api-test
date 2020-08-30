@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>API Test - CRM service API docs</title>
+  <title>CRM service - API docs</title>
   <link
     rel="stylesheet"
     type="text/css"
@@ -42,6 +42,50 @@
     body {
           margin: 0;
       background: #fafafa;
+    }
+
+    /**
+     * The Auth form.
+     * "email", "password" and, "Get key with Credentials".
+     */
+    .auth-container-api-key-form input[name="username"],
+    .auth-container-api-key-form input[name="password"],
+    .auth-container-api-key-form button.auth.authorize {
+      width: 250px;
+    }
+
+    /**
+     * The button with textContent:
+     * "Get Key with Credentials".
+     */
+    .auth-container-api-key-form button.auth.authorize {
+      height: 45px;
+      float: left;
+      margin-top: 30px;
+    }
+
+    /**
+     * Wrapper for "Authorize" and, "Close" buttons.
+     */
+    .swagger-ui .auth-btn-wrapper {
+      float: right;
+    }
+
+    /**
+     * The buttons inside the wrapper.
+     */
+    .swagger-ui .auth-btn-wrapper button {
+      margin-top: 20px;
+      margin-left: 20px;
+      height: 45px;
+    }
+
+    /**
+     * The `code` html tag, used to display the Bearer token,
+     * if the user authentication is successful.
+     */
+    .swagger-ui code {
+      line-break: anywhere;
     }
 
   </style>
@@ -125,7 +169,11 @@
       url: '/docs',
       dom_id: '#swagger-ui',
       deepLinking: true,
-      supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+      supportedSubmitMethods: [
+        // Specifying only the methods supported by Feathers:
+        // https://docs.feathersjs.com/guides/basics/services.html#service-methods
+        "get", "put", "post", "delete", "patch"
+      ],
       docExpansion: 'list',
       defaultModelRendering: 'model',
       presets: [
@@ -140,6 +188,17 @@
         apiKeyAuthFormPlugin: {
           forms: {
             BearerAuth: {
+              submitBtnLabel: 'Authenticate',
+              fields: {
+                username: {
+                  type: 'text',
+                  label: 'Email'
+                },
+                password: {
+                  type: 'password',
+                  label: 'Password'
+                },
+              },
               authCallback(values, callback) {
                 fetch('/authentication', {
                   method: 'POST',
@@ -157,10 +216,12 @@
                   }
                   return Promise.reject(response);
                 }).then(function (data) {
+                  window.document.querySelector('code').textContent =
+                    data.accessToken;
                   callback(null, data.accessToken);
                 }).catch(function (error) {
                   console.warn('Something went wrong.', error);
-                  callback('Invalid credentials');
+                  callback('Something went wrong. Not authorized.');
                 });
               },
             }
@@ -174,16 +235,35 @@
 
     window.ui = ui;
 
-    // Removes the "Value" label and input field from the Authorization form.
-    // Just because I don't need it and, looks ugly.
-    window.document.querySelector('.auth-container .wrapper + .wrapper').remove();
+    /**
+     * I'm using here this dirty trick to improve the authentication form, only
+     * because I think this is not the core of the evaluation, this only helps
+     * to evaluate the test.
+     */
+    setTimeout(function() {
 
-    // Removes the "Authorize button" because it seems it does nothing and it's confusing.
-    const authBtn = window.document
-      .querySelector('button[type="submit"].auth.authorize');
-    if (authBtn.textContent === 'Authorize') {
-      window.document.querySelector('button[type="submit"].auth.authorize').remove();
-    }
+      window.document
+        .querySelector('.auth-wrapper button')
+        .addEventListener('click', function() {
+
+          setTimeout(function() {
+            // Removes the "Value" label and the associated input field from the
+            // Authorization form. Just because we don't need it and, looks ugly.
+            window.document
+              .querySelector('.auth-container .wrapper + .wrapper')
+              .remove();
+
+            // Removes the "Authorize button" because,
+            // it seems like it does nothing and is confusing.
+            const authBtn = window.document
+              .querySelector('button[type="submit"].auth.authorize');
+            if (authBtn && authBtn.textContent === 'Authorize') {
+              authBtn.remove();
+            }
+          }, 100);
+
+        });
+    }, 500);
   }
   </script>
 </body>
