@@ -1,0 +1,38 @@
+version: '3.8'
+
+
+# Names our volume
+#volumes:
+    #mysql_db_data:
+services:
+    node_app:
+        image: node:lts-alpine
+        restart: always
+        build:
+            context: ./
+            dockerfile: ./dockerfiles/node_runtime/Dockerfile
+        environment:
+            - DATABASE_HOST=mysql_db
+        depends_on:
+            - mysql_db
+        ports:
+            # <Port exposed> : <Node.js Port running inside container>
+            - '3030:3030'
+        expose:
+            # Opens port 3030 on the container
+            - '3030'
+    mysql_db:
+        image: mysql:5.7.31
+        build: ./dockerfiles/mysql_database
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: the_agile_monkeys_api_test
+        ports:
+            # <Port exposed> : <MySQL Port running inside container>
+            - '3306:3306'
+        expose:
+            # Opens port 3306 on the container
+            - '3306'
+        #volumes:
+            # Where our data will be persisted
+            #- mysql_db_data:/var/lib/mysql

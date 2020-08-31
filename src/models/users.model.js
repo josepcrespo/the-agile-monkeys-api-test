@@ -69,13 +69,13 @@ module.exports = function (app) {
         name: 'createdById',
         allowNull: false
       }
-    }); // Will add createdBy to customers model
+    });
     users.hasMany(customers, {
       foreignKey: {
         name: 'updatedById',
         allowNull: true
       }
-    }); // Will add updatedBy to customers model
+    });
   };
 
   return users;
