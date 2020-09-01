@@ -47,10 +47,8 @@ module.exports = function (app) {
   service.docs = {
     description: 'Service to manage users.',
     definitions: {
-      'users_list': {
-        $ref: '#/definitions/users'
-      },
-      users: serviceSchema
+      users: serviceSchema,
+      'users_list': serviceSchema
     },
     securities: ['get', 'create', 'update', 'patch', 'remove'],
     operations: {

@@ -101,10 +101,8 @@ module.exports = function (app) {
   service.docs = {
     description: 'Service to manage customers.',
     definitions: {
-      'customers_list': {
-        $ref: '#/definitions/customers'
-      },
-      customers: serviceSchema
+      customers: serviceSchema,
+      'customers_list': serviceSchema
     },
     securities: ['get', 'create', 'update', 'patch', 'remove'],
     operations: {
