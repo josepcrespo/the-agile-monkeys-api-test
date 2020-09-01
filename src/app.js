@@ -47,9 +47,9 @@ app.configure(express.rest());
 // Set up for feathers-swagger
 // https://github.com/feathersjs-ecosystem/feathers-swagger#example-with-ui
 app.configure(swagger({
-    openApiVersion: 3,
-    docsPath: '/docs',
-    uiIndex: path.join(__dirname, '../public/docs/swagger-ui.html'),
+  openApiVersion: 3,
+  docsPath: '/docs',
+  uiIndex: path.join(__dirname, '../public/docs/swagger-ui.html'),
   specs: {
     info: {
       title: 'CRM service - API docs',

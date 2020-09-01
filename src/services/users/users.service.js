@@ -20,9 +20,9 @@ module.exports = function (app) {
   // Init the `users` database table creating
   // a user with `admin` permissions.
   const user = service.create({
-    "email": "admin@theagilemonkeys.com",
-    "password": "asdf1234",
-    "permissions": "admin"
+    'email': 'admin@theagilemonkeys.com',
+    'password': 'asdf1234',
+    'permissions': 'admin'
   });
 
   // If there is no error creating the user,

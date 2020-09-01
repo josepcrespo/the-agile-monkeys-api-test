@@ -11,13 +11,13 @@ function fileFilter(req, file, cb) {
   if (!file.mimetype) {
     cb(new Error('I don\'t have a clue for the file mimetype!'));
   } else if (
-        file.mimetype.split('/')[0] === 'image' &&
-        file.mimetype.includes('gif') ||
-        file.mimetype.includes('jpeg') ||
-        file.mimetype.includes('png') ||
-        file.mimetype.includes('svg+xml') ||
-        file.mimetype.includes('webp')
-    ) {
+    file.mimetype.split('/')[0] === 'image' &&
+    file.mimetype.includes('gif') ||
+    file.mimetype.includes('jpeg') ||
+    file.mimetype.includes('png') ||
+    file.mimetype.includes('svg+xml') ||
+    file.mimetype.includes('webp')
+  ) {
     // Accepting the file
     cb(null, true);
   } else {

@@ -13,17 +13,16 @@ module.exports = (options = {}) => {
     // the `user` object before using it. More info here:
     // https://github.com/feathersjs/feathers/issues/1392#issuecomment-500469261
     if (user) {
-        // Get the User ID query parameter for the request
-        const userIdQueryParam = context.id;
+      // Get the User ID query parameter for the request
+      const userIdQueryParam = context.id;
         
-        // Users without 'admin' permission,
-        // can only get information about their own user.
-        if (
-            user.permissions !== 'admin' &&
-            user.id !== parseInt(userIdQueryParam)
-        ) {
-          throw new Forbidden('You do not have the correct permissions.');
-        }
+      // Users without 'admin' permission,
+      // can only get information about their own user.
+      if (user.permissions !== 'admin' && 
+        user.id !== parseInt(userIdQueryParam)
+      ) {
+        throw new Forbidden('You do not have the correct permissions.');
+      }
     }
     return context;
   };
