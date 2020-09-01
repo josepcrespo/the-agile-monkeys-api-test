@@ -44,6 +44,11 @@
       background: #fafafa;
     }
 
+    #swagger-ui {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
     /**
      * The Auth form.
      * "email", "password" and, "Get key with Credentials".
@@ -88,6 +93,15 @@
       line-break: anywhere;
     }
 
+    /**
+     * The summary of eath API endpoint.
+     * Overwriting the default width.
+     */
+    .swagger-ui .opblock .opblock-summary-path {
+      width: 100%;
+    }
+
+
   </style>
 </head>
 
@@ -100,14 +114,14 @@
   >
     <defs>
       <symbol
-        id="unlocked"
+        id="locked"
         viewBox="0 0 20 20"
       >
         <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V6h2v-.801C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8z"></path>
       </symbol>
 
       <symbol
-        id="locked"
+        id="unlocked"
         viewBox="0 0 20 20"
       >
         <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8zM12 8H8V5.199C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8z"
@@ -163,108 +177,147 @@
   <script src="/third-party-code/@mairu/swagger-ui-apikey-auth-form/dist/swagger-ui-apikey-auth-form.js"></script>
 
   <script>
-    window.onload = function() {
-
-    const ui = SwaggerUIBundle({
-      url: '/docs',
-      dom_id: '#swagger-ui',
-      deepLinking: true,
-      supportedSubmitMethods: [
-        // Specifying only the methods supported by Feathers:
-        // https://docs.feathersjs.com/guides/basics/services.html#service-methods
-        "get", "put", "post", "delete", "patch"
-      ],
-      docExpansion: 'list',
-      defaultModelRendering: 'model',
-      presets: [
-        SwaggerUIBundle.presets.apis,
-        SwaggerUIStandalonePreset
-      ],
-      plugins: [
-        SwaggerUIBundle.plugins.DownloadUrl,
-        SwaggerUIApiKeyAuthFormPlugin
-      ],
-      configs: {
-        apiKeyAuthFormPlugin: {
-          forms: {
-            BearerAuth: {
-              submitBtnLabel: 'Authenticate',
-              fields: {
-                username: {
-                  type: 'text',
-                  label: 'Email'
-                },
-                password: {
-                  type: 'password',
-                  label: 'Password'
-                },
-              },
-              authCallback(values, callback) {
-                fetch('/authentication', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                      "strategy": "local",
-                      "email": values.username,
-                      "password": values.password
-                  }), // The data
-                  headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
-                  }
-                }).then(function (response) {
-                  if (response.ok) {
-                    return response.json();
-                  }
-                  return Promise.reject(response);
-                }).then(function (data) {
-                  window.document.querySelector('code').textContent =
-                    data.accessToken;
-                  callback(null, data.accessToken);
-                }).catch(function (error) {
-                  console.warn('Something went wrong.', error);
-                  callback('Something went wrong. Not authorized.');
-                });
-              },
-            }
-          },
-          localStorage: {
-            BearerAuth: {}
-          }
-        }
-      }
-    });
-
-    window.ui = ui;
+    "use strict"
 
     /**
-     * I'm using here this dirty trick to improve the authentication form, only
-     * because I think this is not the core of the evaluation, this only helps
-     * to evaluate the test.
+     * Removes the "Authorize button" because,
+     * it seems like it does nothing and, is UX confusing.
+     */
+    function removeAuthBtn() {
+      setTimeout(function() {
+        const authBtn = window.document
+          .querySelector('button[type="submit"].auth.authorize');
+        if (authBtn && authBtn.textContent === 'Authorize') {
+          authBtn.remove();
+          console.log('The "Authorize" button, has been removed from auth form.');
+        }
+      }, 100);
+    }
+
+    /**
+     * Removes the "Value" label and the associated input field from the
+     * authorization form. Just because we don't need it and, looks ugly.
+     */
+    function removeValueLabelAndInput() {
+      const element = window.document
+        .querySelector('.auth-container .wrapper + .wrapper');
+
+      if (element) {
+        element.remove();
+        console.log(
+          'The "Value" label and, his associated input,' +
+          ' have been removed from auth form.'
+        );
+      }
+    }
+
+    /**
+     * Adds a `click` event listener to the "Logout" button.
+     */
+    function addClickEventListenerToLogoutBtn() {
+      const logoutBtn = window.document
+        .querySelector('.auth-btn-wrapper button');
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          setTimeout(function() {
+            removeAuthBtn();
+          }, 100);
+        });
+        console.log('"click" event added to the "Logout" button from auth form.');
+      }
+    }
+
+    window.onload = function() {
+
+      window.ui = SwaggerUIBundle({
+        url: '/docs',
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        supportedSubmitMethods: [
+          // Specifying only the methods supported by Feathers:
+          // https://docs.feathersjs.com/guides/basics/services.html#service-methods
+          "get", "put", "post", "delete", "patch"
+        ],
+        docExpansion: 'list',
+        defaultModelRendering: 'model',
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl,
+          SwaggerUIApiKeyAuthFormPlugin
+        ],
+        configs: {
+          apiKeyAuthFormPlugin: {
+            forms: {
+              BearerAuth: {
+                submitBtnLabel: 'Authenticate',
+                fields: {
+                  username: {
+                    type: 'text',
+                    label: 'Email'
+                  },
+                  password: {
+                    type: 'password',
+                    label: 'Password'
+                  },
+                },
+                authCallback(values, callback) {
+                  fetch('/authentication', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "strategy": "local",
+                        "email": values.username,
+                        "password": values.password
+                    }), // The data
+                    headers: {
+                      'Content-type': 'application/json; charset=UTF-8'
+                    }
+                  }).then(function (response) {
+                    if (response.ok) {
+                      return response.json();
+                    }
+                    return Promise.reject(response);
+                  }).then(function (data) {
+                    window.document.querySelector('code').textContent =
+                      data.accessToken;
+                    callback(null, data.accessToken);
+                  }).catch(function (error) {
+                    console.warn('Something went wrong.', error);
+                    callback('Something went wrong. Not authorized.');
+                  });
+                },
+              }
+            },
+            localStorage: {
+              BearerAuth: {}
+            }
+          }
+        }
+      });
+
+    /**
+     * I'm using here this dirty trick (using setTimeout 😓), to overwrite the
+     * authentication form behavior, only because I think it is not the scope of
+     * the evaluation. This Swagger Docs with authentication are only here for
+     * helping to evaluate the test.
      */
     setTimeout(function() {
+        // The "Authorize" button inside the authorization form.
+        window.document
+          .querySelector('.auth-wrapper button')
+          .addEventListener('click', function() {
+            setTimeout(function() {
+              removeValueLabelAndInput();
+              removeAuthBtn();
+              addClickEventListenerToLogoutBtn();
+            }, 100);
 
-      window.document
-        .querySelector('.auth-wrapper button')
-        .addEventListener('click', function() {
-
-          setTimeout(function() {
-            // Removes the "Value" label and the associated input field from the
-            // Authorization form. Just because we don't need it and, looks ugly.
-            window.document
-              .querySelector('.auth-container .wrapper + .wrapper')
-              .remove();
-
-            // Removes the "Authorize button" because,
-            // it seems like it does nothing and is confusing.
-            const authBtn = window.document
-              .querySelector('button[type="submit"].auth.authorize');
-            if (authBtn && authBtn.textContent === 'Authorize') {
-              authBtn.remove();
-            }
-          }, 100);
-
-        });
-    }, 500);
-  }
+          });
+      }, 500);
+    }
   </script>
 </body>
 
