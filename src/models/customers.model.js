@@ -12,9 +12,6 @@ module.exports = function (app) {
       validate: {
         isAlpha: true,
         notEmpty: true
-      },
-      jsonSchema: {
-        examples: ['Jose', 'Josep']
       }
     },
     surname: {
@@ -22,21 +19,11 @@ module.exports = function (app) {
       validate: {
         isAlpha: true,
         notEmpty: true
-      },
-      jsonSchema: {
-        examples: ['Crespo', 'Santacreu']
       }
     },
     photo: {
       type: DataTypes.STRING,
-      allowNull: true,
-      jsonSchema: {
-        examples: [
-          '1598285916299-778318514.jpg',
-          '1598284974217-418336858.png',
-          '1598284173548-622901480.gif'
-        ]
-      }
+      allowNull: true
     },
     createdById: {
       type: DataTypes.INTEGER,

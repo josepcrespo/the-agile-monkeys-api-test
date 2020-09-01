@@ -21,6 +21,34 @@ module.exports = app => {
   authentication.register('local', new LocalStrategy());
   authentication.register('github', new GitHubStrategy());
 
+  // The Swagger definition.
+  authentication.docs = {
+    description: 'Service to manage authentication.',
+    definitions: {
+      authentication: {
+        type: 'object',
+        required: ['strategy'],
+        properties: {
+          strategy: {
+            type: 'string',
+            enum: ['jwt', 'local', 'github'],
+            example: 'local',
+            description: 'Type of strategy used to validate the user credentials.'
+          },
+          email: {
+            type: 'string',
+            example: 'hello@emailprovider.com'
+          },
+          password: {
+            type: 'string',
+            example: '1qazxsw23edcvfr4'
+          }
+        }
+
+      }
+    }
+  };
+
   app.use('/authentication', authentication);
   app.configure(expressOauth());
 };

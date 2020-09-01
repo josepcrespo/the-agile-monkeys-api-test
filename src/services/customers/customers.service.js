@@ -97,12 +97,20 @@ module.exports = function (app) {
   const openApi3Strategy = app.get('openApi3Strategy');
   const serviceSchema = jsonSchemaManager.generate(options.Model, openApi3Strategy);
 
+  // Adding example values for Swagger UI.
+  serviceSchema.properties.name.example    = 'John';
+  serviceSchema.properties.surname.example = 'Doe';
+  serviceSchema.properties.photo.example   = '1598588790204-160155615.png';
+
   // The Swagger definition with the help of `sequelize-to-json-schemas` package.
   service.docs = {
     description: 'Service to manage customers.',
     definitions: {
       customers: serviceSchema,
-      'customers_list': serviceSchema
+      'customers_list': {
+        type: 'array',
+        items: serviceSchema
+      }
     },
     securities: ['get', 'create', 'update', 'patch', 'remove'],
     operations: {

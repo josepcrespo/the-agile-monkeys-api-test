@@ -14,27 +14,18 @@ module.exports = function (app) {
       validate: {
         isEmail: true,
         notEmpty: true
-      },
-      jsonSchema: {
-        examples: ['you@someprovider.com']
       }
     },
     password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
-      },
-      jsonSchema: {
-        examples: ['1qaz2wsx3edc4rfv']
       }
     },
     githubId: {
       type: DataTypes.STRING,
       validate: {
         isInt: true
-      },
-      jsonSchema: {
-        examples: ['3214895']
       }
     },
     permissions: {
@@ -45,9 +36,6 @@ module.exports = function (app) {
         isIn: [['admin', 'user']],
         notEmpty: true,
         notNull: true
-      },
-      jsonSchema: {
-        examples: ['admin', 'user']
       }
     }
   
