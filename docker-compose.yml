@@ -1,9 +1,5 @@
-version: '3.8'
+version: '2.4'
 
-
-# Names our volume
-#volumes:
-    #mysql_db_data:
 services:
     node_app:
         image: node:lts-alpine
@@ -14,7 +10,8 @@ services:
         environment:
             - DATABASE_HOST=mysql_db
         depends_on:
-            - mysql_db
+            mysql_db:
+                condition: service_healthy
         ports:
             # <Port exposed> : <Node.js Port running inside container>
             - '3030:3030'
@@ -33,6 +30,5 @@ services:
         expose:
             # Opens port 3306 on the container
             - '3306'
-        #volumes:
-            # Where our data will be persisted
-            #- mysql_db_data:/var/lib/mysql
+        healthcheck:
+            test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD

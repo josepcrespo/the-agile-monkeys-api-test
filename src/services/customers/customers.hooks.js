@@ -2,11 +2,8 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const checkPermissions = require('feathers-permissions');
 
 const processCustomerCreate = require('../../hooks/process-customer-create');
-
 const processCustomerUpdate = require('../../hooks/process-customer-update');
-
 const validateCustomerCreate = require('../../hooks/validate-customer-create');
-
 const validateCustomerUpdate = require('../../hooks/validate-customer-update');
 
 module.exports = {

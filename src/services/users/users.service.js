@@ -17,6 +17,20 @@ module.exports = function (app) {
 
   service.hooks(hooks);
 
+  // Init the `users` database table creating
+  // a user with `admin` permissions.
+  const user = service.create({
+    "email": "admin@theagilemonkeys.com",
+    "password": "asdf1234",
+    "permissions": "admin"
+  });
+
+  // If there is no error creating the user,
+  // we can register a log on Node server.
+  service.once('created', user =>
+    console.info('Admin user created:', user)
+  );
+
   // https://github.com/alt3/sequelize-to-json-schemas#usage
   const jsonSchemaManager = app.get('jsonSchemaManager');
   const openApi3Strategy = app.get('openApi3Strategy');
