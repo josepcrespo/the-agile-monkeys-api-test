@@ -1,12 +1,12 @@
 // Initializes the `customers` service on path `/customers`
-const { Customers }    = require('./customers.class');
-const { authenticate } = require('@feathersjs/authentication').hooks;
-
 const createService = require('feathers-sequelize');
 const createModel   = require('../../models/customers.model');
 const hooks         = require('./customers.hooks');
 const multer        = require('multer');
 
+/**
+ * Filters the file on `multer`.
+ */
 function fileFilter(req, file, cb) {
   if (!file.mimetype) {
     cb(new Error('I don\'t have a clue for the file mimetype!'));
@@ -26,6 +26,9 @@ function fileFilter(req, file, cb) {
   }
 }
 
+/**
+ * Defines a storage for `multer`.
+ */
 let multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/images/customers');
@@ -37,6 +40,9 @@ let multerStorage = multer.diskStorage({
   }
 });
 
+/**
+ * Allows us to upload files choosen in a multipart/form-data formulary.
+ */
 const multerUpload = multer({
   fileFilter: fileFilter,
   storage: multerStorage,

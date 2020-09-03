@@ -19,9 +19,9 @@ module.exports = function (app) {
 
   // Init the `users` database table creating
   // a user with `admin` permissions.
-  let user = service.create({
-          'email': 'admin@theagilemonkeys.com',
-       'password': 'asdf1234',
+  service.create({
+    'email': 'admin@theagilemonkeys.com',
+    'password': 'asdf1234',
     'permissions': 'admin'
   });
 
@@ -32,9 +32,9 @@ module.exports = function (app) {
   );
 
   // Adding a user with restricted permissions.
-  user = service.create({
-          'email': 'user@theagilemonkeys.com',
-       'password': 'asdf1234',
+  service.create({
+    'email': 'user@theagilemonkeys.com',
+    'password': 'asdf1234',
     'permissions': 'user'
   });
 

@@ -35,8 +35,8 @@
   },
   "scripts": {
     "test": "npm run lint && npm run jest",
-    "lint": "eslint src/. test/. --config .eslintrc.json --fix",
-    "dev": "nodemon src/ && npm run lint",
+    "lint": "eslint src/. test/. --config .eslintrc.json --ext .js --fix",
+    "dev": "nodemon src/",
     "start": "node src/",
     "jest": "jest  --forceExit"
   },
