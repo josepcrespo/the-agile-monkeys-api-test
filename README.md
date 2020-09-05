@@ -359,7 +359,7 @@ When used as a REST API, incoming requests get mapped automatically to their cor
 | Service method                              | HTTP method | Path                  |
 |:---                                         |:---         |:---                   |
 | service.find({ query: {} })                 | GET         | /users                |
-| service.find({ query: { githubId: true } }) | GET         | /users?=githubId=null |
+| service.find({ query: { githubId: true } }) | GET         | /users?=email=user@theagilemonkeys.com |
 | service.get(2)                              | GET         | /users/2              |
 | service.create(body)                        | POST        | /users                |
 | service.update(2, body)                     | PUT         | /users/2              |
