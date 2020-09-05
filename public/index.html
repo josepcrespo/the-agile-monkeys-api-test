@@ -33,6 +33,13 @@
         <p>
           Note that new users only have <em>"user"</em> permissions. This means that you only have access to the <em>/customers</em> service and all its associated methods.
         </p>
+        <p>
+          Try the given JWT with a simple <em>curl</em> command to retrieve the customers list:
+        </p>
+        <code>
+          curl --location --request GET 'localhost:3030/customers' \<br>
+          &nbsp;&nbsp;--header 'Authorization: Bearer {{ jsonWebToken }}'
+        </code>
       </template>
       <div class="content-separator"></div>
       <h1>Explore the REST API</h1>
@@ -41,13 +48,25 @@
            class="swagger-ui-docs cta-btn">
           <img src="/third-party-code/swagger-ui-dist/favicon-32x32.png">
           Swagger UI docs
-       </a>
-     </div>
+        </a>
+      </div>
       <h2>Swagger UI allows to visualize and interact with the API’s resources.</h2>
+      <div class="content-separator"></div>
+      <h1>Import a Postmant API Client Collection</h1>
+      <div class="postman-run-button"
+           data-postman-action="collection/import"
+           data-postman-var-1="1859282581eec69ec6b6">
+      </div>
+      <h2>Import a Collection on Postman for testing the API extensively (including the use of JWT and, the upload of image files to the <em>/customers</em> endpoint.</h2>
       <footer>
         <p class="center-text">For more information on Feathers see <a href="https://docs.feathersjs.com" title="Feathers Documentation" target="blank">docs.feathersjs.com</a>.</p>
       </footer>
     </main>
+    <script>
+      window.addEventListener('load', function(event) {
+        document.body.classList.add('fade-in-on-window-load');
+      });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
       let vueApp = new Vue({
@@ -72,7 +91,18 @@
             return jsonWebToken;
           }
         }
-      })
+      });
+
+      /**
+       * Code snippet for loading the "Run in Postman" button.
+       */
+      (function (p,o,s,t,m,a,n) {
+        !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+        !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+          (n = o.createElement("script")),
+          (n.id = s+t), (n.async = 1), (n.src = m), n
+        ));
+      }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
     </script>
   </body>
   <style>
@@ -87,6 +117,16 @@
       font-weight: 400;
       font-size: 16px;
       color: #2c3e50;
+    }
+
+    body {
+      opacity: 0;
+      transition: 3s opacity;
+      transition-delay: 2s;
+    }
+
+    body.fade-in-on-window-load {
+      opacity: 1;
     }
 
     .center-text {
@@ -125,7 +165,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 100px 20px 20px;
+      padding: 100px 20px 0;
     }
 
     footer p {
@@ -149,7 +189,9 @@
     }
 
     a.cta-btn:hover,
-    a.cta-btn:focus {
+    a.cta-btn:focus,
+    .postman-run-button:hover,
+    .postman-run-button:focus {
       box-shadow: 0 2px 5px 2px rgba(0, 0, 0, .25);
     }
 
@@ -198,6 +240,11 @@
 
     .content-separator {
       height: 70px;
+    }
+
+    .postman-run-button {
+      display: block;
+      margin: 0 auto 30px;
     }
   </style>
 </html>
