@@ -218,45 +218,47 @@
           <p class="fade-in-animation">Scroll down to navigate</p>
         </div>
         <template v-if="!jsonWebToken && !githubLoginError">
-        <div class="content-box">
-          <h1>Authenticate with GitHub login</h1>
-          <div style="display: grid">
-            <a href="/oauth/github"
-               class="oauth-login cta-btn">
-              <img src="/images/github-icon-32x32.png">
-              GitHub OAuth
-            </a>
+          <div class="content-box">
+            <h1>Authenticate with GitHub login</h1>
+            <div style="display: grid">
+              <a href="/oauth/github"
+                 class="oauth-login cta-btn">
+                <img src="/images/github-icon-32x32.png">
+                GitHub OAuth
+              </a>
+            </div>
+            <h2>You will get back a valid JSON Web Token if everything goes well.</h2>
           </div>
-          <h2>You will get back a valid JSON Web Token if everything goes well.</h2>
         </template>
-        <template v-else-if="githubLoginError">
-          <h1>GitHub Login error</h1>
-          <code>{{ githubLoginError }}</code>
-          <h2>Something went wrong when trying to authenticate with GitHub OAuth.</h2>
-        </div>
-        </template>
-        <template v-if="jsonWebToken">
+        <template v-if="jsonWebToken || githubLoginError">
           <div class="content-box-full-height">
-            <h1>GitHub login (OAuth)</h1>
-            <h2>Congrats! You received a JSON Web Token (a.k.a. JWT), valid for 24 hours:</h2>
-            <code>{{ jsonWebToken }}</code>
-            <blockquote cite="https://jwt.io/introduction/">
-              To access a protected route or resource, the user agent should send the JWT, typically in the Authorization header using the Bearer schema. The content of the header should look like the following:
-            </blockquote>
-            <code>Authorization: Bearer &lt;token&gt;</code>
-            <blockquote cite="https://jwt.io/introduction/">
-              The server's protected routes will check for a valid JWT in the Authorization header, and if it's present, the user will be allowed to access protected resources.
-            </blockquote>
-            <p>
-              Note that new users only have <em>"user"</em> permissions. This means that you only have access to the <em>/customers</em> service and all its associated methods.
-            </p>
-            <p>
-              Try the given JWT with a simple <em>curl</em> command to retrieve the customers list:
-            </p>
-            <code>
-              curl --location --request GET 'localhost:3030/customers' \<br>
-              &nbsp;&nbsp;--header 'Authorization: Bearer {{ jsonWebToken }}'
-            </code>
+            <template v-if="jsonWebToken">
+              <h1>GitHub login (OAuth)</h1>
+              <h2>Congrats! You received a JSON Web Token (a.k.a. JWT), valid for 24 hours:</h2>
+              <code>{{ jsonWebToken }}</code>
+              <blockquote cite="https://jwt.io/introduction/">
+                To access a protected route or resource, the user agent should send the JWT, typically in the Authorization header using the Bearer schema. The content of the header should look like the following:
+              </blockquote>
+              <code>Authorization: Bearer &lt;token&gt;</code>
+              <blockquote cite="https://jwt.io/introduction/">
+                The server's protected routes will check for a valid JWT in the Authorization header, and if it's present, the user will be allowed to access protected resources.
+              </blockquote>
+              <p>
+                Note that new users only have <em>"user"</em> permissions. This means that you only have access to the <em>/customers</em> service and all its associated methods.
+              </p>
+              <p>
+                Try the given JWT with a simple <em>curl</em> command to retrieve the customers list:
+              </p>
+              <code>
+                curl --location --request GET 'localhost:3030/customers' \<br>
+                &nbsp;&nbsp;--header 'Authorization: Bearer {{ jsonWebToken }}'
+              </code>
+            </template>
+            <template v-else-if="githubLoginError">
+              <h1>GitHub Login error</h1>
+              <code>{{ githubLoginError }}</code>
+              <h2>Something went wrong when trying to authenticate with GitHub OAuth.</h2>
+            </template>
             <input type="button"
                   value="◀ Go Back"
                   v-on:click="goBack()"
@@ -341,7 +343,7 @@
           showContent: function () {
             const contentBoxElements = 
               window.document.querySelectorAll('.content-box');
-            if (this.jsonWebToken) {
+            if (this.jsonWebToken || this.githubLoginError) {
                 contentBoxElements.forEach(function (element) {
                   element.style.display = 'none';
                 });
