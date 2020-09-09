@@ -102,7 +102,7 @@ Also, it’s worth to mention that I’ve followed the security considerations d
 
 ## Quick start guide
 
-You need [Git](https://git-scm.com) >= `2.24.3` and, [Docker Engine](https://docker.com/) >= `v18.06.0`.
+You need [Git](https://git-scm.com) >= `v2.24.3` and, [Docker Engine](https://docker.com/) >= `v18.06.0`.
 
 ```bash
 $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git &&
