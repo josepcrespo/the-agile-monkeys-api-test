@@ -17,25 +17,25 @@ module.exports = function (app) {
 
   service.hooks(hooks);
 
-  // Init the `users` database table creating
-  // a user with `admin` permissions.
-  service.create({
+  /**
+   * Init the `users` database table with two users:
+   * first one with `admin` permissions and, the
+   * second with `user` permissions.
+   */
+  const initialUsers = [{
     'email': 'admin@theagilemonkeys.com',
     'password': 'asdf1234',
     'permissions': 'admin'
-  });
-
-  // If there is no error creating the user,
-  // we can register a log on Node server.
-  service.once('created', user =>
-    console.info('User with admin permissions created:', user)
-  );
-
-  // Adding a user with restricted permissions.
-  service.create({
+  }, {
     'email': 'user@theagilemonkeys.com',
     'password': 'asdf1234',
     'permissions': 'user'
+  }];
+
+  initialUsers.forEach(user => {
+    if ( !service.find({ query: { email: user.email } }) ) {
+      service.create(user);
+    }
   });
 
   // https://github.com/alt3/sequelize-to-json-schemas#usage
