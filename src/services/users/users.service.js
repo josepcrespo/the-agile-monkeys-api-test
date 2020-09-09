@@ -33,9 +33,14 @@ module.exports = function (app) {
   service.hooks(hooks);
 
   initialUsers.forEach(user => {
-    if ( !service.find({ query: { email: user.email } }) ) {
-      service.create(user);
-    }
+    service.find({ query: { email: user.email } })
+    .then(result => {
+      console.log(result);
+      if (result.total === 0) {
+        service.create(user);
+        console.log('New user created:', user);
+      }
+    });
   });
 
   // https://github.com/alt3/sequelize-to-json-schemas#usage

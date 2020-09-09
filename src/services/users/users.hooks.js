@@ -8,6 +8,7 @@ const validateUserCreate = require('../../hooks/validate-user-create');
 const validateUserUpdate = require('../../hooks/validate-user-update');
 const checkPermissions = require('feathers-permissions');
 const checkUserGetPermissions = require('../../hooks/check-user-get-permissions');
+const deleteUserIfNotHimself = require('../../hooks/delete-user-if-not-himself');
 
 module.exports = {
   before: {
@@ -29,7 +30,10 @@ module.exports = {
       checkPermissions({ roles: [ 'admin' ] }),
       validateUserUpdate()
     ],
-    remove: [ checkPermissions({ roles: [ 'admin' ] }) ]
+    remove: [
+      checkPermissions({ roles: ['admin'] }),
+      deleteUserIfNotHimself()
+    ]
   },
 
   after: {
