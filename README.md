@@ -8,6 +8,7 @@ Table of contents:
 		+ [Mandatory implementation requirements](#mandatory-implementation-requirements)
 		+ [Optional implementation requirements](#optional-implementation-requirements)
 		+ [Proposed solution](#proposed-solution)
+	* [Quick start guide](#quick-start-guide)
 	* [Project installation](#project-installation)
 		+ [Local](#local)
 		+ [Docker](#docker)
@@ -99,6 +100,19 @@ Also, it’s worth to mention that I’ve followed the security considerations d
 - Password storage inside `@feathersjs/authentication-local uses [bcrypt](https://en.wikipedia.org/wiki/Bcrypt). We don't store the salts separately since they are included in the bcrypt hashes.
 - By default, JWT's are stored in [Local Storage](https://developer.mozilla.org/es/docs/Web/API/Window/localStorage) (instead of [cookies](https://en.wikipedia.org/wiki/HTTP_cookie) to avoid [CSRF attacks](https://en.wikipedia.org/wiki/Cross-site_request_forgery). For JWT, we use the HS256 algorithm by default (HMAC using SHA-256 hash algorithm). If you choose to store JWT's in cookies, your app may have CSRF vulnerabilities.
 
+## Quick start guide
+
+You need [Git](https://git-scm.com) >= `2.24.3` and, [Docker Engine](https://docker.com/) >= `v18.06.0`.
+
+```bash
+$ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git &&
+  cd the-agile-monkeys-api-test &&
+  docker-compose build --no-cache --force-rm &&
+  docker-copose up
+```
+
+The project runs on [http://localhost:3030/](http://localhost:3030/).
+
 ## Project installation
 
 > :warning: Currently, the Docker option for installing the project does not provide synchronization of files between the host and the Docker containers. So, you need to rebuild the Docker containers each time you change your files on your host and wants to show the changes on the application. Another thing to be aware of is that the data does not persist between `docker-compose down` and, `docker-compose up` command executions. So take this in consideration.
@@ -107,7 +121,7 @@ Also, it’s worth to mention that I’ve followed the security considerations d
 
 **Requirements**
 
-- [Git](https://git-scm.com) >= `2.24.3`. If your are a developer, you probably have Git already installed. If not, visit the [official downloads](https://git-scm.com/downloads) page as it provides appropriate instructions for different operating systems.
+- [Git](https://git-scm.com) >= `v2.24.3`. If your are a developer, you probably have Git already installed. If not, visit the [official downloads](https://git-scm.com/downloads) page as it provides appropriate instructions for different operating systems.
 
 - [Node.js](https://nodejs.org/) >= `v10.0.0`. Feathers docs recommends to use the latest available version. The docs also recommend the use of [Node Version Manager](https://github.com/nvm-sh/nvm) (on macOS or other [Unix](https://en.wikipedia.org/wiki/Unix) based operating systems). Other methods for installing Node.js are:
 
@@ -131,11 +145,11 @@ $ sudo apt install npm
 > :v: After a successful installation, the `node` (`nodejs` if using a Debian flavored Linux distro) and `npm` commands should be available on the terminal and show something similar when running the following commands:
 
 ```bash
-$ node -- version
+$ node --version
 v14.0.0
 ```
 ```bash
-$ npm -- version
+$ npm --version
 v6.14.8
 ```
 
@@ -197,7 +211,7 @@ $ npm install
 
 **Requirements**
 
-- [Git](https://git-scm.com) >= `2.24.3`. If your are a developer, you probably have Git already installed. If not, visit the [official downloads](https://git-scm.com/downloads) page as it provides appropriate instructions for different operating systems.
+- [Git](https://git-scm.com) >= `v2.24.3`. If your are a developer, you probably have Git already installed. If not, visit the [official downloads](https://git-scm.com/downloads) page as it provides appropriate instructions for different operating systems.
 
 - [Docker Engine](https://docker.com/) >= `v18.06.0`. Just visit the [official Docker Desktop page](https://www.docker.com/products/docker-desktop) and, download the appropriate version for your operating system.
 
@@ -235,6 +249,8 @@ $ docker-compose down
 
 ## Run the project
 
+The API is exposed at [http://localhost:3030/](http://localhost:3030/) after executing anyone of the following commands to run the application.
+
 ### Run locally
 
 - **Development server**
@@ -267,8 +283,6 @@ $ docker-compose up
 
 You need to keep this shell open and, you can see if any log appears during the execution of the application.
 
-Open [http://localhost:3030/](http://localhost:3030/) to see the index page of the application.
-
 - **Production mode**
 
 You need to change the `Dockerfile` located at `/dockerfiles/node_runtime/Dockerfile`. Open it an chage this line:
@@ -290,8 +304,6 @@ $ docker-compose up -d
 
 Using the `-d` option, the server runs in background.
 
-Open [http://localhost:3030/](http://localhost:3030/) to see the index page of the application.
-
 ## GitHub Oauth login
 
 Feathers provides "[Login with GitHub](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)" functionality using OAuth 2.0, out of the box without much effort.
@@ -304,7 +316,7 @@ In order to log in with GitHub, visit [http://localhost:3030/oauth/github](http:
 
 ![GitHub Oauth login](readme_images/github-oauth-login.gif)
 
-> :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) again to obtain a new valid JWT, without GitHub asking again for authorization.
+> :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) all the times you want to obtain a new valid JWT, without GitHub asking again for authorization.
 
 ## REST API documentation
 
@@ -395,7 +407,6 @@ Click on the button below for importing a _Postman Collection_ into your Postman
 ## ToDo List
 
 - [ ] Improve the README.md file as much as possible.
-- [ ] In case GitHub OAuth login returns a callback with an error, show it a well formatted, on the public `/index.html` page.
 - [ ] Create a "before delete user" Feathers Hook, for checking if it's the the only existing admin.
 - [ ] Write Unit Tests.
 - [ ] Automatically synchronize the files between the host and the Docker containers and, vice versa.
