@@ -3,6 +3,21 @@ const { Users }   = require('./users.class');
 const createModel = require('../../models/users.model');
 const hooks       = require('./users.hooks');
 
+/**
+ * Users to init the database table:
+ * first one with `admin` permissions and, the
+ * second with `user` permissions.
+ */
+const initialUsers = [{
+  'email': 'admin@theagilemonkeys.com',
+  'password': 'asdf1234',
+  'permissions': 'admin'
+}, {
+  'email': 'user@theagilemonkeys.com',
+  'password': 'asdf1234',
+  'permissions': 'user'
+}];
+
 module.exports = function (app) {
   const options = {
     Model: createModel(app),
@@ -16,21 +31,6 @@ module.exports = function (app) {
   const service = app.service('users');
 
   service.hooks(hooks);
-
-  /**
-   * Init the `users` database table with two users:
-   * first one with `admin` permissions and, the
-   * second with `user` permissions.
-   */
-  const initialUsers = [{
-    'email': 'admin@theagilemonkeys.com',
-    'password': 'asdf1234',
-    'permissions': 'admin'
-  }, {
-    'email': 'user@theagilemonkeys.com',
-    'password': 'asdf1234',
-    'permissions': 'user'
-  }];
 
   initialUsers.forEach(user => {
     if ( !service.find({ query: { email: user.email } }) ) {
