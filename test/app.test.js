@@ -14,11 +14,13 @@ const getUrl = pathname => url.format({
 describe('Feathers application tests', () => {
   let server;
 
+  // eslint-disable-next-line no-undef
   before(done => {
     server = app.listen(port);
     server.once('listening', () => done());
   });
 
+  // eslint-disable-next-line no-undef
   after(done => {
     server.close(done);
   });

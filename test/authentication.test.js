@@ -12,6 +12,7 @@ describe('authentication', () => {
       password: 'supersecret'
     };
 
+    // eslint-disable-next-line no-undef
     before(async () => {
       try {
         await app.service('users').create(userInfo);
