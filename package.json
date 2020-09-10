@@ -38,7 +38,8 @@
     "lint": "eslint src/. test/. --config .eslintrc.json --ext .js --fix",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "clean": "shx rm -rf test/data/",
+    "mocha": "npm run clean && NODE_ENV=test mocha test/ --recursive --exit"
   },
   "standard": {
     "env": [
@@ -74,6 +75,7 @@
     "feathers-swagger": "^1.2.1",
     "mocha": "^8.1.3",
     "nodemon": "^2.0.4",
+    "shx": "^0.3.2",
     "swagger-ui-dist": "^3.32.4"
   }
 }
