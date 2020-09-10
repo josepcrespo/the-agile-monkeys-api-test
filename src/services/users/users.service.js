@@ -35,7 +35,6 @@ module.exports = function (app) {
   initialUsers.forEach(user => {
     service.find({ query: { email: user.email } })
     .then(result => {
-      console.log(result);
       if (result.total === 0) {
         service.create(user);
         console.log('New user created:', user);
