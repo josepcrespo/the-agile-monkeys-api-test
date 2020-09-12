@@ -35,7 +35,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run coverage",
-    "coverage": "nyc npm run mocha",
+    "coverage": "nyc --reporter=html --reporter=text npm run mocha",
     "lint": "eslint src/. test/. --config .eslintrc.json --ext .js --fix",
     "dev": "nodemon src/",
     "start": "node src/",
