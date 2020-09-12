@@ -1,5 +1,6 @@
 const assert = require('assert');
 const app = require('../../src/app');
+const mailServer = '@mailprovider.com';
 
 describe('users', () => {
   it('registered the `users` service', () => {
@@ -12,8 +13,7 @@ describe('users', () => {
     // Calling a Feathers service from inside the Feathers app
     // can be done without providing authentication on the request.
     const user = await app.service('users').create({
-      //email: 'test' + Math.floor(Math.random() * 1000) + '@example.com',
-      email: 'test' + Math.floor(Math.random() * 1000) + '@example.com',
+      email: 'user' + new Date().getTime() + mailServer,
       password: 'secret'
     });
 
@@ -22,28 +22,31 @@ describe('users', () => {
   });
 
   it('removes password for external requests', async () => {
-    // Setting `provider` indicates an external request
+    const adminUser = await app.service('users').create({
+      email: 'admin' + new Date().getTime() + mailServer,
+      password: 'secret',
+      permissions: 'admin'
+    });
     const params = {
+      // Setting `provider` indicates an external request
       provider: 'rest',
-      /* The method provided by the official docs does not work:
+      /**
+       * The official Feathers Guide says:
+       *  "We 'fake' authentication by setting params.user manually."
+       *  https://docs.feathersjs.com/guides/basics/testing.html#testing-services
        *
-       * https://docs.feathersjs.com/guides/basics/testing.html#testing-services
-       *
-       * but we can fake we are authenticated,
-       * setting the `authenticated` property to `true`.
-       *
-       * You can check it on the `authenticate.js` module file:
-       * https://docs.feathersjs.com/guides/basics/testing.html#testing-services
+       * But that's not enough, whe should set the `authenticated` property
+       * to `true` and, also add a user with the required permissions for
+       * the request we want to send.
        */
-      authenticated: true
+      authenticated: true,
+      user: adminUser
     };
-
-    const user = await app.service('users').create({
-      email: 'test' + Math.floor(Math.random() * 1000) + '@example.com',
+    const restUser = await app.service('users').create({
+      email: 'user' + new Date().getTime() + mailServer,
       password: 'secret'
     }, params);
-
     // Make sure password has been removed
-    assert.ok(!user.password);
+    assert.ok(!restUser.password);
   });
 });
