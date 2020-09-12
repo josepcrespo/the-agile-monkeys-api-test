@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>A FeathersJS application</title>
+    <title>The Agile Monkeys - CRM service</title>
     <meta name="description"
-          content="A FeathersJS server">
+          content="A FeathersJS REST API to manage customer data for a small shop.">
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
     <style>
@@ -116,6 +116,10 @@
         font-size: 1.0em;
       }
 
+      .cta-btn-container {
+        display: grid;
+      }
+
       a {
         color: #33CCFF;
       }
@@ -142,17 +146,22 @@
         margin-right: 10px;
       }
 
-      a.oauth-login > img {
+      a.oauth-login-btn > img {
         filter: invert(1) contrast(2);
       }
 
-      a.cta-btn.oauth-login {
+      a.cta-btn.oauth-login-btn {
         background-color: black;
       }
 
-      a.cta-btn.swagger-ui-docs {
+      a.cta-btn.swagger-ui-docs-btn {
         background-color: #85EA2D;
         color: #1A3B45;
+      }
+
+      a.cta-btn.tests-coverage-btn {
+        background-color: #F8DE10;
+        color: black;
       }
 
       code {
@@ -220,9 +229,9 @@
         <template v-if="!jsonWebToken && !githubLoginError">
           <div class="content-box">
             <h1>Authenticate with GitHub login</h1>
-            <div style="display: grid">
+            <div class="cta-btn-container">
               <a href="/oauth/github"
-                 class="oauth-login cta-btn">
+                 class="oauth-login-btn cta-btn">
                 <img src="/images/github-icon-32x32.png">
                 GitHub OAuth
               </a>
@@ -267,9 +276,9 @@
         </template>
         <div class="content-box">
           <h1>Explore the REST API</h1>
-          <div style="display: grid">
+          <div class="cta-btn-container">
             <a href="/docs/swagger-ui.html"
-               class="swagger-ui-docs cta-btn">
+               class="swagger-ui-docs-btn cta-btn">
               <img src="/third-party-code/swagger-ui-dist/favicon-32x32.png">
               Swagger UI docs
             </a>
@@ -282,12 +291,23 @@
                data-postman-action="collection/import"
                data-postman-var-1="1859282581eec69ec6b6">
             <a href="#"
-               class="run-in-postman cta-btn">
+               class="run-in-postman-btn cta-btn">
               <img src="/images/postman-icon-32x32.png">
               Run in Postman
             </a>
           </div>
-          <h2>Import a Collection on Postman for testing the API extensively (including the use of JWT and, the upload of image files to the <em>/customers</em> endpoint.</h2>
+          <h2>Import a Collection on Postman for testing the API extensively (including the use of JWT and, the upload of image files to the <em>/customers</em> endpoint).</h2>
+        </div>
+        <div class="content-box">
+          <h1>Code Tests Coverage</h1>
+          <div class="cta-btn-container">
+            <a href="/tests-coverage/"
+               class="tests-coverage-btn cta-btn">
+              <img src="/images/istanbul-icon-32x32.png">
+              IstanbulJS Report
+            </a>
+          </div>
+          <h2>View the current status of the project's test coverage.</h2>
         </div>
         <footer class="content-box">
           <p class="center-text">
