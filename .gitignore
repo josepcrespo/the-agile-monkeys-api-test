@@ -112,3 +112,6 @@ data/
 
 # Customers photos
 public/images/customers/
+
+# Istanbul Code Coverage output
+.nyc_output/
