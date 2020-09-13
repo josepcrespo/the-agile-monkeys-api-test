@@ -34,14 +34,15 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
-    "clean": "shx rm -rf test/data/",
+    "clean-tests": "shx rm -rf test/data/",
+    "clean-coverage": "shx rm -rf public/tests-coverage/",
     "coverage": "nyc --reporter=html --reporter=text npm run mocha",
     "dev": "nodemon src/",
     "lint": "eslint src/. test/. --config .eslintrc.json --ext .js --fix",
-    "mocha": "npm run clean && NODE_ENV=test mocha test/ --recursive --exit",
-    "publish-tests-coverage": "move-cli coverage/ public/tests-coverage/",
+    "mocha": "npm run clean-tests && NODE_ENV=test mocha test/ --recursive --exit",
+    "publish-coverage": "move-cli coverage/ public/tests-coverage/",
     "start": "node src/",
-    "test": "npm run lint && npm run coverage"    
+    "test": "npm run lint && npm run coverage && npm run clean-coverage && npm run publish-coverage"
   },
   "standard": {
     "env": [
