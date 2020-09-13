@@ -9,22 +9,20 @@ const feathersErrorType = 'FeathersError';
 const badRequestHtmlStatusCode = 400;
 const forbiddenHtmlStatusCode = 403;
 
-describe('users hooks: patch-validations', () => {
-  it(
-    'Patches a `user`',
-    async () => {
-      const user = await app.service('users').create({
-        email: 'user' + new Date().getTime() + mailProvider,
-        password: 'secret'
-      });
-      await app.service('users').patch(user.id, {
-        email: 'user' + new Date().getTime() + mailProvider,
-        password: 'differentPassword',
-        githubId: '1234567890',
-        permissions: 'admin'
-      });
-    }
-  );
+describe('users hook: patch.validate', () => {
+
+  it('Patches a `user`', async () => {
+    const user = await app.service('users').create({
+      email: 'user' + new Date().getTime() + mailProvider,
+      password: 'secret'
+    });
+    await app.service('users').patch(user.id, {
+      email: 'user' + new Date().getTime() + mailProvider,
+      password: 'differentPassword',
+      githubId: '1234567890',
+      permissions: 'admin'
+    });
+  });
 
   it('A `user` with `admin` permisions can PATCH other `user`', async () => {
     const adminUser = await app.service('users').create({
@@ -124,4 +122,5 @@ describe('users hooks: patch-validations', () => {
       }
     );
   });
+  
 });

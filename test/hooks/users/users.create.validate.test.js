@@ -8,7 +8,8 @@ const expectedBadRequest = 'Expected Feathers BadRequest not thrown.';
 const feathersErrorType = 'FeathersError';
 const badRequestHtmlStatusCode = 400;
 
-describe('users hooks: create-validations', () => {
+describe('users hook: create.validate', () => {
+
   it(creatingUserWithout + '`githubId` and, `email`', async () => {
     try {
       await app.service('users').create({
@@ -54,4 +55,5 @@ describe('users hooks: create-validations', () => {
       assert.equal(error.message, 'Please, provide an `email` and `password`.');
     }
   });
+  
 });

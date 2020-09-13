@@ -1,16 +1,16 @@
 const assert = require('assert');
 const app = require('../../src/app');
-//const { BadRequest } = require('@feathersjs/errors');
 const mailProvider = '@mailprovider.com';
 
 describe('users', () => {
+
   it('registered the `users` service', () => {
     const service = app.service('users');
 
     assert.ok(service, 'Registered the service');
   });
 
-  it('creates a user (from inside the app) and, encrypts his password', async () => {
+  it('creates a `user` and, encrypts his `password`', async () => {
     // Calling a Feathers service from inside the Feathers app
     // can be done without providing authentication on the request.
     const user = await app.service('users').create({
@@ -22,7 +22,7 @@ describe('users', () => {
     assert.ok(user.password !== 'secret');
   });
 
-  it('removes password for external requests', async () => {
+  it('removes `password` for external requests', async () => {
     const adminUser = await app.service('users').create({
       email: 'admin' + new Date().getTime() + mailProvider,
       password: 'secret',
@@ -51,7 +51,7 @@ describe('users', () => {
     assert.ok(!restUser.password);
   });
 
-  it('creates a user with default permissions', async () => {
+  it('creates a `user` with default permissions', async () => {
     const basicUser = await app.service('users').create({
       email: 'user' + new Date().getTime() + mailProvider,
       password: 'secret'
@@ -59,4 +59,5 @@ describe('users', () => {
 
     assert.equal(basicUser.permissions, 'user');
   });
+  
 });

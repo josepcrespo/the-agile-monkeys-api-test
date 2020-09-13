@@ -8,7 +8,8 @@ const feathersErrorType = 'FeathersError';
 const forbiddenHtmlStatusCode = 403;
 const notFoundHtmlStatusCode = 404;
 
-describe('users hooks: remove-validations', () => {
+describe('users hook: remove.validate', () => {
+
   it('A `user` with `admin` permissions can delete other `user`', async () => {
     const adminUser = await app.service('users').create({
       email: 'admin' + new Date().getTime() + mailProvider,
@@ -80,4 +81,5 @@ describe('users hooks: remove-validations', () => {
       assert.equal(error.message, 'You are not allowed to delete your own user.');
     }
   });
+  
 });

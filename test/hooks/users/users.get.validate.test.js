@@ -7,7 +7,8 @@ const expectedBadRequest = 'Expected Feathers BadRequest not thrown.';
 const feathersErrorType = 'FeathersError';
 const forbiddenHtmlStatusCode = 403;
 
-describe('users hooks: get-validations', () => {
+describe('users hook: get.validate', () => {
+
   it('A `user` without `admin` permissions can not get details from another user', async () => {
     const basicUser1 = await app.service('users').create({
       email: 'userOne' + new Date().getTime() + mailProvider,
@@ -44,4 +45,5 @@ describe('users hooks: get-validations', () => {
       assert.equal(error.message, 'You do not have the correct permissions.');
     }
   });
+
 });

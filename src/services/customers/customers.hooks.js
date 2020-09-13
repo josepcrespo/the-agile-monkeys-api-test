@@ -1,10 +1,10 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const checkPermissions = require('feathers-permissions');
 
-const processCustomerCreate = require('../../hooks/process-customer-create');
-const processCustomerUpdate = require('../../hooks/process-customer-update');
-const validateCustomerCreate = require('../../hooks/validate-customer-create');
-const validateCustomerUpdate = require('../../hooks/validate-customer-update');
+const processCustomerCreate = require('../../hooks/customers/customers.create.process');
+const validateCustomerCreate = require('../../hooks/customers/customers.create.validate');
+const processCustomerPatch = require('../../hooks/customers/customers.patch.process');
+const validateCustomerPatch = require('../../hooks/customers/customers.patch.validate');
 
 module.exports = {
   before: {
@@ -15,8 +15,8 @@ module.exports = {
     find: [],
     get: [],
     create: [processCustomerCreate(), validateCustomerCreate()],
-    update: [processCustomerUpdate(), validateCustomerUpdate()],
-    patch: [processCustomerUpdate(), validateCustomerUpdate()],
+    update: [processCustomerPatch(), validateCustomerPatch()],
+    patch: [processCustomerPatch(), validateCustomerPatch()],
     remove: []
   },
 

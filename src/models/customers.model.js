@@ -9,6 +9,7 @@ module.exports = function (app) {
   const customers = sequelizeClient.define('customers', {
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isAlpha: true,
         notEmpty: true
@@ -16,6 +17,7 @@ module.exports = function (app) {
     },
     surname: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isAlpha: true,
         notEmpty: true
