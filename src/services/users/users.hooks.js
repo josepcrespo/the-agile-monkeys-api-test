@@ -1,38 +1,34 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
 
-const {
-  hashPassword, protect
-} = require('@feathersjs/authentication-local').hooks;
-
-const validateUserCreate = require('../../hooks/validate-user-create');
-const validateUserUpdate = require('../../hooks/validate-user-update');
-const checkPermissions = require('feathers-permissions');
-const checkUserGetPermissions = require('../../hooks/check-user-get-permissions');
-const deleteUserIfNotHimself = require('../../hooks/delete-user-if-not-himself');
+const checkFeathersPermissions = require('feathers-permissions');
+const validateUserCreate = require('../../hooks/users/create-validations');
+const validateUserGet = require('../../hooks/users/get-validations');
+const validateUserPatch = require('../../hooks/users/patch-validations');
+const validateUserRemove = require('../../hooks/users/remove-validations');
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [ checkPermissions({ roles: [ 'admin' ] }) ],
-    get: [checkUserGetPermissions()],
+    find: [ checkFeathersPermissions({ roles: [ 'admin' ] }) ],
+    get: [ validateUserGet() ],
     create: [
-      hashPassword('password'),
-      checkPermissions({ roles: [ 'admin' ] }),
-      validateUserCreate()
+      checkFeathersPermissions({ roles: [ 'admin' ] }),
+      validateUserCreate(),
+      hashPassword('password')
     ],
     update: [
+      checkFeathersPermissions({ roles: [ 'admin' ] }),
       hashPassword('password'),
-      checkPermissions({ roles: [ 'admin' ] }),
-      validateUserUpdate()
     ],
     patch: [
-      hashPassword('password'),
-      checkPermissions({ roles: [ 'admin' ] }),
-      validateUserUpdate()
+      checkFeathersPermissions({ roles: [ 'admin' ] }),
+      validateUserPatch(),
+      hashPassword('password')
     ],
     remove: [
-      checkPermissions({ roles: ['admin'] }),
-      deleteUserIfNotHimself()
+      checkFeathersPermissions({ roles: ['admin'] }),
+      validateUserRemove()
     ]
   },
 

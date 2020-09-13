@@ -41,7 +41,7 @@
     "mocha": "npm run clean && NODE_ENV=test mocha test/ --recursive --exit",
     "publish-tests-coverage": "move-cli coverage/ public/tests-coverage/",
     "start": "node src/",
-    "test": "npm run lint && npm run coverage && npm run publish-tests-coverage"    
+    "test": "npm run lint && npm run coverage"    
   },
   "standard": {
     "env": [

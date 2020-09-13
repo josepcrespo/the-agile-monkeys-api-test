@@ -8,19 +8,21 @@ module.exports = (options = {}) => {
   return async context => {
     const { data } = context;
 
-    if (
-      data.email !== undefined && !data.email &&
-      (data.githubId === undefined || !data.githubId)
-    ) {
-      throw new BadRequest('Please, provide an email address.');
+    if (data.email !== undefined && !data.email) {
+      throw new BadRequest('Please, provide valid `email`.');
     }
 
     if (data.password !== undefined && !data.password) {
-      throw new BadRequest('Please, provide a password.');
+
+      throw new BadRequest('Please, provide valid `password`.');
     }
 
     if (data.githubId !== undefined && !data.githubId) {
-      throw new BadRequest('Please, provide a GitHub ID.');
+      throw new BadRequest('Please, provide valid `githubId`.');
+    }
+
+    if (data.permissions !== undefined && !data.permissions) {
+      throw new BadRequest('Please, provide valid `permissions`.');
     }
     
     return context;
