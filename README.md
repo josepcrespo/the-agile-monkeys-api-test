@@ -407,7 +407,6 @@ Click on the button below for importing a _Postman Collection_ into your Postman
 ## ToDo List
 
 - [ ] Improve the README.md file as much as possible.
-- [ ] Write Unit Tests.
 - [ ] Automatically synchronize the files between the host and the Docker containers and, vice versa.
 - [ ] Make possible the use of JWT to authorize API calls on the Swagger UI.
 - [ ] Persist data of Docker containers once they were down.
