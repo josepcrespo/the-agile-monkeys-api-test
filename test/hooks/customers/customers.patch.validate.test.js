@@ -66,7 +66,7 @@ describe('customers hook: patch.validate', () => {
           }
           assert.equal(error.type, feathersErrorType);
           assert.equal(error.code, badRequestHtmlStatusCode);
-          assert.equal(error.message, 'Please, provide valid `' + property + '`.');
+          assert.equal(error.message, 'Please, provide a valid `' + property + '`.');
         }
       }
     );

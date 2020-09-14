@@ -66,17 +66,7 @@ describe('users hook: patch.validate', () => {
       password: 'secret'
     });
     const params = {
-      // Setting `provider` indicates an external request
       provider: 'rest',
-      /**
-       * The official Feathers Guide says:
-       *  "We 'fake' authentication by setting params.user manually."
-       *  https://docs.feathersjs.com/guides/basics/testing.html#testing-services
-       *
-       * But that's not enough, whe should set the `authenticated` property
-       * to `true` and, also add a user with the required permissions for
-       * the request we want to send.
-       */
       authenticated: true,
       user: basicUser1
     };
@@ -117,7 +107,7 @@ describe('users hook: patch.validate', () => {
           }
           assert.equal(error.type, feathersErrorType);
           assert.equal(error.code, badRequestHtmlStatusCode);
-          assert.equal(error.message, 'Please, provide valid `' + property + '`.');
+          assert.equal(error.message, 'Please, provide a valid `' + property + '`.');
         }
       }
     );

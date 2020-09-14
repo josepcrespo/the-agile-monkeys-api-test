@@ -9,11 +9,11 @@ module.exports = (options = {}) => {
     const { data } = context;
 
     if (data.name !== undefined && !data.name) {
-      throw new BadRequest('Please, provide valid `name`.');
+      throw new BadRequest('Please, provide a valid `name`.');
     }
 
     if (data.surname !== undefined && !data.surname) {
-      throw new BadRequest('Please, provide valid `surname`.');
+      throw new BadRequest('Please, provide a valid `surname`.');
     }
     
     return context;
