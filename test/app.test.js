@@ -25,13 +25,26 @@ describe('Feathers application tests', () => {
     server.close(done);
   });
 
+  describe('GitHub OAuth login', () => {
+
+    it('The GitHub OAuth login page loads', async () => {
+      const response = await axios.get(getUrl('oauth/github'));
+
+      assert.equal(response.status, 200);
+      assert.equal(response.statusText, 'OK');
+      assert.equal(response.headers.server, 'GitHub.com');
+      assert.ok(response.data.indexOf('Sign in to GitHub') !== -1);
+    });
+
+  });
+
   it('starts and shows the index page', async () => {
     const { data } = await axios.get(getUrl());
 
     assert.ok(data.indexOf('<html lang="en">') !== -1);
   });
 
-  describe('404', () => {
+  describe('404 HTML status code responses', () => {
     it('shows a 404 HTML page', async () => {
       try {
         await axios.get(getUrl('path/to/nowhere'), {

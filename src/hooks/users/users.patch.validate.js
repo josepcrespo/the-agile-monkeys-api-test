@@ -8,12 +8,17 @@ module.exports = (options = {}) => {
   return async context => {
     const { data } = context;
 
-    if (data.email !== undefined && !data.email) {
+    if (
+      (data.email !== undefined && !data.email) &&
+      // The following check allows the `/oauth/github` service
+      // to authenticate a user using the GitHub OAuth login,
+      // without requiring an email.
+      (data.githubId === undefined || !data.githubId)
+    ) {
       throw new BadRequest('Please, provide a valid `email`.');
     }
 
     if (data.password !== undefined && !data.password) {
-
       throw new BadRequest('Please, provide a valid `password`.');
     }
 

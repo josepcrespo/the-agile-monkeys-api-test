@@ -21,6 +21,7 @@ Table of contents:
 		+ [Feathers CRUD](#feathers-crud)
 		+ [Swagger UI docs](#swagger-ui-docs)
 		+ [Run with Postman](#run-with-postman)
+	* [Tests](#tests)
 	* [ToDo List](#todo-list)
 	* [Bibliography](#bibliography)
 		+ [Feathers](#feathers)
@@ -398,11 +399,133 @@ Click on the button below for importing a _Postman Collection_ into your Postman
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/1859282581eec69ec6b6)
 
+The collection is called `CRM service - API docs`.
+
 > :eyes: Remember to set a valid JWT on the _Authorization_ tab of a Postman request (if the request requires authentication) using the _Bearer token_ option.
 
 <mark>TODO: provide examples with _Postman API Client_ and/or _Insomnia Core_.</mark>
 
 <mark>TODO: provide an example creating a user with a photo using _Postman API Client_ and/or _Insomnia Core_.</mark>
+
+## Tests
+
+The project comes full of tests (not 100%, but close). The tests are executed thanks to the [Mocha framework](https://mochajs.org/) and the [Node.js Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
+
+There is no tests for CRUD operations because all this functionallity is already tested by the Feathers framework internally. Only a few edge cases are tested, for example, when a request interacts somehow with a custom Feathers Hook.
+
+For running the tests locally, move into your project’s root directory an execute:
+
+```bash
+$ npm run test
+```
+<mark>TODO: GIF example</mark>
+
+Here you can see the full output of the tests, all passing fine:
+
+```bash
+  Feathers application tests
+    ✓ starts and shows the index page (63ms)
+    GitHub OAuth login
+      ✓ The GitHub OAuth login page loads (812ms)
+    404 HTML status code responses
+info: Page not found {"type":"FeathersError","name":"NotFound","code":404,"className":"not-found","data":{"url":"/path/to/nowhere"},"errors":{}}
+      ✓ shows a 404 HTML page
+info: Page not found {"type":"FeathersError","name":"NotFound","code":404,"className":"not-found","data":{"url":"/path/to/nowhere"},"errors":{}}
+      ✓ shows a 404 JSON error without stack trace
+
+  authentication
+    ✓ registered the `authentication` service
+    local strategy
+      ✓ authenticates user and creates accessToken (129ms)
+
+  customers hook: create.process
+    ✓ creates a `customer` and attaches the ID of the `user` who created him (136ms)
+
+  customers hook: create.validate
+    ✓ Throws a BadRequest when tries to create a `customer` without `name` and, `surname`. (122ms)
+    ✓ Throws a BadRequest when tries to create a `customer` without `name`. (128ms)
+    ✓ Throws a BadRequest when tries to create a `customer` without `name`. (146ms)
+
+  customers hook: patch.process
+    ✓ creates a `customer` and attaches the ID of the `user` who updated him (154ms)
+
+  customers hook: patch.validate
+    ✓ A `user` can PATCH other `user` (141ms)
+    ✓ Throws a BadRequest when tries to update a `customer` with an empty `name` (128ms)
+    ✓ Throws a BadRequest when tries to update a `customer` with an empty `surname` (150ms)
+
+  users hook: create.validate
+    ✓ Throws a BadRequest when tries to create a `user` without `githubId` and, `email`
+    ✓ Throws a BadRequest when tries to create a `user` without `githubId` and, `password`
+    ✓ Throws a BadRequest when tries to create a `user` without `githubId, `email` and, `password`.
+
+  users hook: get.validate
+    ✓ A `user` without `admin` permissions can not get details from another user (248ms)
+
+  users hook: patch.validate
+    ✓ Patches a `user` (250ms)
+    ✓ A `user` with `admin` permisions can PATCH other `user` (259ms)
+    ✓ A `user` with `user` permisions can not PATCH other `user` (254ms)
+    ✓ Throws a BadRequest when tries to update a `user` with an empty `email` (127ms)
+    ✓ Throws a BadRequest when tries to update a `user` with an empty `password` (217ms)
+    ✓ Throws a BadRequest when tries to update a `user` with an empty `githubId` (152ms)
+    ✓ Throws a BadRequest when tries to update a `user` with an empty `permissions` (146ms)
+
+  users hook: remove.validate
+    ✓ A `user` with `admin` permissions can delete other `user` (269ms)
+    ✓ A `user` can not delete himself (136ms)
+
+  customers
+    ✓ registered the `customers` service
+    ✓ creates a `customer` (144ms)
+
+  users
+    ✓ registered the `users` service
+    ✓ creates a `user` and, encrypts his `password` (135ms)
+    ✓ removes `password` for external requests (281ms)
+    ✓ creates a `user` with default permissions (149ms)
+
+
+  33 passing (5s)
+
+-------------------------------|---------|----------|---------|---------|-------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------------|---------|----------|---------|---------|-------------------
+All files                      |   88.15 |    71.43 |   79.07 |   88.15 |
+ src                           |    87.5 |    33.33 |      60 |    87.5 |
+  app.hooks.js                 |     100 |      100 |     100 |     100 |
+  app.js                       |     100 |      100 |     100 |     100 |
+  authentication.js            |   84.62 |      100 |      50 |   84.62 | 7-9
+  channels.js                  |      25 |       25 |      25 |      25 | 7-47
+  logger.js                    |     100 |      100 |     100 |     100 |
+  sequelize-to-json-schemas.js |     100 |      100 |     100 |     100 |
+  sequelize.js                 |     100 |       50 |     100 |     100 | 22
+ src/hooks/customers           |     100 |      100 |     100 |     100 |
+  customers.create.process.js  |     100 |      100 |     100 |     100 |
+  customers.create.validate.js |     100 |      100 |     100 |     100 |
+  customers.patch.process.js   |     100 |      100 |     100 |     100 |
+  customers.patch.validate.js  |     100 |      100 |     100 |     100 |
+ src/hooks/users               |     100 |     92.5 |     100 |     100 |
+  users.create.validate.js     |     100 |    90.91 |     100 |     100 | 11
+  users.get.validate.js        |     100 |    85.71 |     100 |     100 | 15
+  users.patch.validate.js      |     100 |    94.74 |     100 |     100 | 12
+  users.remove.validate.js     |     100 |      100 |     100 |     100 |
+ src/middleware                |     100 |      100 |     100 |     100 |
+  index.js                     |     100 |      100 |     100 |     100 |
+ src/models                    |   95.45 |      100 |   83.33 |   95.45 |
+  customers.model.js           |   90.91 |      100 |   66.67 |   90.91 | 48
+  users.model.js               |     100 |      100 |     100 |     100 |
+ src/services                  |     100 |      100 |     100 |     100 |
+  index.js                     |     100 |      100 |     100 |     100 |
+ src/services/customers        |   59.09 |        0 |      20 |   59.09 |
+  customers.hooks.js           |     100 |      100 |     100 |     100 |
+  customers.service.js         |   51.35 |        0 |      20 |   51.35 | 11-25,34-39,69-91
+ src/services/users            |   94.74 |       50 |     100 |   94.74 |
+  users.class.js               |     100 |      100 |     100 |     100 |
+  users.hooks.js               |     100 |      100 |     100 |     100 |
+  users.service.js             |      92 |       50 |     100 |      92 | 39-40
+-------------------------------|---------|----------|---------|---------|-------------------
+```
 
 ## ToDo List
 
