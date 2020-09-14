@@ -369,15 +369,15 @@ Feathers service methods that provide CRUD functionality are:
 
 When used as a REST API, incoming requests get mapped automatically to their corresponding service method like this:
 
-| Service method                              | HTTP method | Path                  |
-|:---                                         |:---         |:---                   |
-| service.find({ query: {} })                 | GET         | /users                |
-| service.find({ query: { githubId: true } }) | GET         | /users?=email=user@theagilemonkeys.com |
-| service.get(2)                              | GET         | /users/2              |
-| service.create(body)                        | POST        | /users                |
-| service.update(2, body)                     | PUT         | /users/2              |
-| service.patch(2, body)                      | PATCH       | /users/2              |
-| service.remove(2)                           | DELETE      | /users/2              |
+| Service method                              		| HTTP method | Path                  |
+|:---                                         		|:---         |:---                   |
+| service.find({ query: {} })						| GET         | /users                |
+| service.find({ query: { permissions: 'admin' } }) | GET         | /users?email=admin 	  |
+| service.get(1)                              		| GET         | /users/1              |
+| service.create(body)                        		| POST        | /users                |
+| service.update(1, body)                     		| PUT         | /users/1              |
+| service.patch(1, body)                      		| PATCH       | /users/1              |
+| service.remove(1)                           		| DELETE      | /users/1              |
 
 ### Swagger UI docs
 
