@@ -1,4 +1,4 @@
-![public/index.html](readme_images/index.gif)
+![public/index.html](readme_images/public-index.gif)
 
 Table of contents:
 
@@ -330,7 +330,14 @@ After a successful login the third party provider (GitHub in our case), will red
 
 In order to log in with GitHub, visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github). You will be redirected to GitHub and asked to authorize the authentication into our application, using your GitHub account. If everything went well, you will see a JWT, valid for 24 hours, that you can use for making requests to the API endpoints that require authentication. Keep in mind that all users are created with "user" role permissions as default (this role only can operate with the `/customers` service).
 
+Login with GitHub example:
+
 ![GitHub Oauth login](readme_images/github-oauth-login.gif)
+
+Performing a `curl` request using the returned JWT after login with GitHub:
+
+![curl request using a JWT](readme_images/curl-request-with-jwt.gif)
+
 
 > :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) all the times you want to obtain a new valid JWT, GitHub will not ask for authorization since you already granted before.
 
@@ -372,6 +379,14 @@ If you want to login with a user, you need to set the `strategy` property to `lo
 	"password": "asdf1234"
 }
 ```
+
+and, here you have an example using `curl` command:
+
+```bash
+curl -X POST "http://localhost:3030/authentication" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"strategy\":\"local\",\"email\":\"user@theagilemonkeys.com\",\"password\":\"asdf1234\"}"
+```
+
+![Authenticating with local strategy using curl](readme_images/curl-authentication.gif)
 
 ### Feathers CRUD
 
@@ -420,15 +435,13 @@ The collection is called `CRM service - API docs`.
 
 > :eyes: Remember to set a valid JWT on the _Authorization_ tab of a Postman request (if the request requires authentication) using the _Bearer token_ option.
 
-<mark>TODO: provide examples with _Postman API Client_ and/or _Insomnia Core_.</mark>
-
-<mark>TODO: provide an example creating a user with a photo using _Postman API Client_ and/or _Insomnia Core_.</mark>
+![Creating a customer with a photo, using Postman](read_images/new-customer-with-photo-using-postman.gif)
 
 ## Tests
 
 The project comes full of tests (not 100%, but close). Tests are done using the [Mocha framework](https://mochajs.org/) and the [Node.js native Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
 
-<mark>TODO: Istanbul coverage screenshot.</mark>
+![Istanbul coverage reports in HTML format](readme_images/istanbul-coverage-reports.png)
 
 There is no tests for CRUD operations because all this functionallity is already tested by the Feathers framework internally. Only a few edge cases are tested, for example, when a request interacts somehow with a custom Feathers Hook.
 
@@ -604,10 +617,6 @@ $ docker exec -it the-agile-monkeys-api-test_node_server_1 npm run publish-cover
 ```
 
 You can view the output here [http://localhost:3030/tests-coverage/](http://localhost:3030/tests-coverage/).
-
-## ToDo List
-
-- [ ] Improve the README.md file as much as possible.
 
 ## Bibliograpy
 
