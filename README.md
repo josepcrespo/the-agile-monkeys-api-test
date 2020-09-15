@@ -15,6 +15,7 @@ Table of contents:
 	* [Run the project](#run-the-project)
 		+ [Run locally](#run-locally)
 		+ [Run on Docker](#run-on-docker)
+	* [Seed the database](#seed-the-database)
 	* [GitHub OAuth login](#github-oauth-login)
 	* [REST API documentation](#rest-api-documentation)
 		+ [Pre-configured users](#pre-configured-users)
@@ -43,7 +44,7 @@ A REST API to manage customer data for a small shop.
 
 This is a demo project to provide an example of my skills for building a [REST compliant API](https://en.wikipedia.org/wiki/Representational_state_transfer). This time, I’ve decided to use [Feathers](https://feathersjs.com/), a [Node.js](https://nodejs.org/) framework oriented for building real-time applications and REST APIs. I've made an extensive use of the latest version of [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) on the backend and, used a few cool features of [Vue.js](https://vuejs.org/) on the frontend. Other modern development tools used are: [NPM](https://www.npmjs.com/) (the Node.js package manager), [Sequelize](https://sequelize.org/) (a promise-based Node.js ORM for relational databases), [MySQL](https://www.mysql.com/) server (for data storage), [Docker](https://www.docker.com/) (helps to create the necessary environment for developing or running the application) and, the [Swagger](https://swagger.io/) toolset (for exploring and interacting with the API). And, of course, I’ve used [Git](https://git-scm.com/) for code control version and, a basic knowledge of the [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell) for interacting with the respective [CLI (command-line interface)](https://en.wikipedia.org/wiki/Command-line_interface) for Git, Docker and, Feathers. The full project has been developed on [macOS](https://www.apple.com/es/macos/what-is/) [Catalina](https://en.wikipedia.org/wiki/MacOS_Catalina) (v10.15.6) on top of a [MacBook Air mid 2012](https://support.apple.com/kb/SP670?viewlocale=en_US).
 
-You can use this project for your needs under your total responsibility. You can, for example, fork it and, use as a foundation for your own project if you found it useful.
+You can use this project for your needs under your total responsibility. You can, for example, fork it and, use it as a foundation for your own project if you found it useful.
 
 ## Project introduction
 
@@ -79,7 +80,7 @@ The objective of this project is to provide a REST API to manage customer data f
 - Good README file with a getting started guide.
 - Tests implemented for the solution.
 - Making project set-up easier for newcomers.
-- The application follows the twelve-factor app principles [12factor.net](https:// 12factor.net) in order for it to be scalable.
+- The application follows the twelve-factor app principles [12factor.net](https://12factor.net) in order for it to be scalable.
 - Follow [OAuth 2 protocol](https://oauth.net/2/) for authentication (using a third party public OAuth provider is allowed).
 - The project is ready for [Continuous Deployment](https://en.wikipedia.org/wiki/Continuous_deployment) using a provider (e.g., [AWS](https://aws.amazon.com/)).
 - The project uses [Docker](https://www.docker.com/), [Vagrant](https://www.vagrantup.com/) or other tools to make it easier to configure development environments.
@@ -99,7 +100,7 @@ So, my work was: first to known all this tools and technologies, understand how 
 Also, it’s worth to mention that I’ve followed the security considerations detailed on the official [Feathers Guides](https://docs.feathersjs.com/guides/). In particular, there is [a full section about security](https://docs.feathersjs.com/guides/security.html). The following points of the security section are the relevant ones for this project:
 
 - Using [hooks](https://docs.feathersjs.com/api/hooks.html) to check security roles to make sure users can only access data they should be permitted to.
-- Escape any [SQL](https://en.wikipedia.org/wiki/SQL) (typically done by the SQL library) to avoid [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). A major benefit for using an ORM, like Sequelize in this project, is that they make use of prepared statements, which is a technique to escape input in order to prevent SQL injection vulnerabilities. In June 2019, [Snyk](https://snyk.io/) (a company focused on security tools for developers) discovered [attack vectors that could lead to SQL injection](https://snyk.io/blog/sequelize-orm-npm-library-found-vulnerable-to-sql-injection-attacks/), the Sequelize maintainers promptly released fixes for the affected versions.
+- Escape any [SQL](https://en.wikipedia.org/wiki/SQL) (typically done by the SQL library) to avoid [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). A major benefit for using an ORM, like Sequelize in this project, is that they make use of prepared statements, which is a technique to escape input in order to prevent SQL injection vulnerabilities. In June 2019, [Snyk](https://snyk.io/) (a company focused on security tools for developers) discovered [attack vectors that could lead to SQL injection](https://snyk.io/blog/sequelize-orm-npm-library-found-vulnerable-to-sql-injection-attacks/). The Sequelize maintainers promptly released fixes for the affected versions.
 - [JSON Web Tokens (JWT’s)](https://jwt.io) are only signed. They are not encrypted. Therefore, the payload can be examined on the client. This is by design. DO NOT put anything that should be private in the JWT payload unless you encrypt it first.
 - Don't use a weak secret for you token service. The generator creates a strong one for you automatically. No need to change it.
 - Password storage inside `@feathersjs/authentication-local uses [bcrypt](https://en.wikipedia.org/wiki/Bcrypt). We don't store the salts separately since they are included in the bcrypt hashes.
@@ -182,23 +183,23 @@ When the installation is done, take note of your MySQL server connection paramet
 - The database user password.
 - The IP address or domain name of the server.
 - The port number where the service is exposed.
-- A database named `the_agile_monkeys_api_test`.
+- A database named `the_agile_monkeys_crm_service`.
 
 When you have this parameters at hand, you need to edit the `/config/default.json` file. Find the following line on the file:
 
-```
-"mysql": "mysql://root:@localhost:3306/the_agile_monkeys_api_test"
+```json
+"mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service"
 ```
 
 and, change it accordingly to your MySQL server connection parameters. The template is:
 
-```
+```json
 "mysql": "mysql://<user>:<password>@<ip_address>:<port_number>/<database_name>"
 ```
 
 **Installation**
 
-Open a shell and navigate where you want to install the project. Then execute:
+Open a shell and navigate where you want to install the project. Then run:
 
 ```bash
 $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git
@@ -222,13 +223,13 @@ $ npm install
 
 **Installation**
 
-Open a shell and navigate where you want to install the project. Then execute:
+Open a shell and navigate where you want to install the project. Then run:
 
 ```bash
 $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git
 ```
 
-Make sure Docker is running on your machine. Enter into the project root directory and execute the following command for downloading the necessary _Docker images_ and, building the _Docker containers_:
+Make sure Docker is running on your machine. Enter into the project root directory and run the following command for downloading the necessary _Docker images_ and, building the _Docker containers_:
 
 ```bash
 $ docker-compose build --no-cache --force-rm
@@ -240,13 +241,13 @@ You don't need to worry about any dependencies because the project setup for Doc
 
 **Useful commands**
 
-The code between your host and the Docker containers does not syncronize at this moment. If you need to change the code base and want to see the changes on the Docker container, you need to re-build the containers first. Execute the following command on the root directory of the project:
+The code between your host and the Docker containers does not syncronize at this moment. If you need to change the code base and want to see the changes on the Docker container, you need to re-build the containers first. Run the following command on the root directory of the project:
 
 ```bash
 $ docker-copose up --build
 ```
 
-If you want to stop the containers running the project, execute this command on the root directory of the project:
+If you want to stop the containers running the project, run this command on the root directory of the project:
 
 ```bash
 $ docker-compose down
@@ -254,13 +255,13 @@ $ docker-compose down
 
 ## Run the project
 
-The API is exposed at [http://localhost:3030/](http://localhost:3030/) after executing anyone of the following commands to run the application.
+The API will be exposed at [http://localhost:3030/](http://localhost:3030/) after executing anyone of the following commands.
 
 ### Run locally
 
 - **Development server**
 
-Navigate to the project root directory and execute:
+Navigate to the project root directory and run:
 
 ```bash
 $ npm run dev
@@ -270,7 +271,7 @@ You need to keep this shell open and, you can see if any log appears during the 
 
 - **Production mode**
 
-Navigate to the project root directory and execute:
+Navigate to the project root directory and run:
 
 ```bash
 $ npm run start
@@ -280,7 +281,7 @@ $ npm run start
 
 - **Development server**
 
-By default, the project runs in development mode when using Docker. Just navigate to the project root directory and execute:
+By default, the project runs in development mode when using Docker. Just navigate to the project root directory and run:
 
 ```bash
 $ docker-compose up
@@ -309,6 +310,12 @@ $ docker-compose up -d --build
 
 Using the `-d` option, the server runs in background.
 
+## Seed the database
+
+The project comes with only two users registered into the database (one with “admin” permissions and, the other one with basic “user” permissions). If you want to seed the database with dummy data, it can be easily done running the tests against the database used by the application.
+
+Use the `mysql` connection string from `/config/default.json` on `/config/test.json` and then, run the tests.
+
 ## GitHub Oauth login
 
 Feathers provides "[Login with GitHub](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)" functionality using OAuth 2.0, out of the box without much effort.
@@ -321,7 +328,7 @@ In order to log in with GitHub, visit [http://localhost:3030/oauth/github](http:
 
 ![GitHub Oauth login](readme_images/github-oauth-login.gif)
 
-> :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) all the times you want to obtain a new valid JWT, without GitHub asking again for authorization.
+> :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) all the times you want to obtain a new valid JWT, GitHub will not ask for authorization since you already granted before.
 
 ## REST API documentation
 
@@ -331,7 +338,7 @@ The project comes with two users already registered so you can easily start to t
 
 **Admin user:**
 
-```
+```json
 {
 	"email": "admin@theagilemonkeys.com",
 	"password": "asdf1234",
@@ -341,7 +348,7 @@ The project comes with two users already registered so you can easily start to t
 
 **Basic user:**
 
-```
+```json
 {
 	"email": "user@theagilemonkeys.com",
 	"password": "asdf1234",
@@ -349,10 +356,10 @@ The project comes with two users already registered so you can easily start to t
 }
 ```
 
-If you want to test `/authorization` endpoint for login with a user, you need to set the `strategy` property to `local` and, of course, provide valid credentials as shown above. Below is an example of a `body` that should be sent using the POST method to the indicated endpoint:
+If you want to login with a user, you need to set the `strategy` property to `local` and, of course, provide valid credentials. Below is an example of a `body` that should be sent using the `POST` method to the `/authorization` API endpoint:
 
 
-```bash
+```json
 {
 	"strategy": "local",
 	"email": "user@theagilemonkeys.com",
@@ -373,21 +380,21 @@ Feathers service methods that provide CRUD functionality are:
 
 When used as a REST API, incoming requests get mapped automatically to their corresponding service method like this:
 
-| Service method                              		| HTTP method | Path                  |
-|:---                                         		|:---         |:---                   |
-| service.find({ query: {} })						| GET         | /users                |
-| service.find({ query: { permissions: 'admin' } }) | GET         | /users?email=admin 	  |
-| service.get(1)                              		| GET         | /users/1              |
-| service.create(body)                        		| POST        | /users                |
-| service.update(1, body)                     		| PUT         | /users/1              |
-| service.patch(1, body)                      		| PATCH       | /users/1              |
-| service.remove(1)                           		| DELETE      | /users/1              |
+| Service method                              		| HTTP method | Path                  	 |
+|:---                                         		|:---         |:---                   	 |
+| service.find({ query: {} })						| GET         | /users                	 |
+| service.find({ query: { permissions: 'admin' } }) | GET         | /users?permissions=admin |
+| service.get(1)                              		| GET         | /users/1              	 |
+| service.create(body)                        		| POST        | /users                	 |
+| service.update(1, body)                     		| PUT         | /users/1              	 |
+| service.patch(1, body)                      		| PATCH       | /users/1              	 |
+| service.remove(1)                           		| DELETE      | /users/1              	 |
 
 ### Swagger UI docs
 
 ![Swagger UI docs](readme_images/swagger-ui-docs.gif)
 
-The project comes with a full Swagger UI setup so, you can play with the API directly on the docs page: [http://localhost:3030/docs/swagger-ui.html](http://localhost:3030/docs/swagger-ui.html). All Feathers services exposed by the API have their own documentation for each method, examples, live execution of queries and, their respective responses.
+The project comes with a full Swagger UI setup so, you can play with the API directly on the docs page. All Feathers services exposed by the API have their own documentation for each method, examples, live execution of queries and, their respective responses.
 
 Swagger UI allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from our OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption.
 
@@ -413,13 +420,25 @@ The collection is called `CRM service - API docs`.
 
 ## Tests
 
-The project comes full of tests (not 100%, but close). The tests are executed thanks to the [Mocha framework](https://mochajs.org/) and the [Node.js native Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
+The project comes full of tests (not 100%, but close). Tests are done using the [Mocha framework](https://mochajs.org/) and the [Node.js native Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
 
 <mark>TODO: Istanbul coverage screenshot.</mark>
 
 There is no tests for CRUD operations because all this functionallity is already tested by the Feathers framework internally. Only a few edge cases are tested, for example, when a request interacts somehow with a custom Feathers Hook.
 
 ### Running tests locally
+
+Open the `/config/test.json` file. Find the following line on the file:
+
+```json
+"mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service_tests"
+```
+
+and, change it accordingly to your MySQL server connection parameters. The template is:
+
+```json
+"mysql": "mysql://<user>:<password>@<ip_address>:<port_number>/<database_name>"
+```
 
 Move into your project’s root directory an run:
 
@@ -556,16 +575,17 @@ All files                      |   88.15 |    71.43 |   79.07 |   88.15 |
 
 ### Publishing new HTML coverage reports
 
-The project already comes with coverage reports in HTML format. Only execute this command if you changed something in your tests and wants to publish the new reports. Coverage reports in HTML format can be re-published to the `/public/tests-coverage/` directory, following this steps:
+The project already comes with coverage reports in HTML format. Only run this command if you changed something in your tests and wants to publish the new reports. Coverage reports in HTML format can be re-published to the `/public/tests-coverage/` directory, following this steps:
 
-First move into your project’s root directory.
+First move to your project’s root directory.
 
-For running locally:
+For running **locally**:
 
 ```bash
 $ npm run publish-coverage
 ```
-or, alternatively using Docker, start the projet's Docker containers if not running yet:
+
+or, alternatively using **Docker**, start the projet's Docker containers if not running yet:
 
 ```bash
 $ docker-compose up
