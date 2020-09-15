@@ -12,6 +12,8 @@ services:
         depends_on:
             mysql_server:
                 condition: service_healthy
+        volumes:
+            - './:/usr/src/app'
         ports:
             # <Port exposed> : <Node.js Port running inside container>
             - '3030:3030'

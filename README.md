@@ -121,7 +121,7 @@ The project runs on [http://localhost:3030/](http://localhost:3030/).
 
 ## Project installation
 
-> :warning: Currently, the Docker option for installing the project does not provide synchronization of files between the host and the Docker containers. So, you need to rebuild the Docker containers each time you change your files on your host and wants to show the changes on the application. Another thing to be aware of is that the data does not persist between `docker-compose down` and, `docker-compose up` command executions. So take this in consideration.
+The recommended way of installing the project is using the Docker approach. Anyway, you have the option to install all locally.
 
 ### Local
 
@@ -215,6 +215,8 @@ $ npm install
 
 > :warning: Make sure you are not currently running any other service on your host that can interfere with the Docker services, for instance, a MySQL server or, a web server like NGINX or Apache. Since, the domain names and/or ports used could coincide and ruin the proper functioning of the application.
 
+> :warning: The data does not persist between `docker-compose down` and, `docker-compose up` command executions.
+
 **Requirements**
 
 - [Git](https://git-scm.com) >= `v2.24.3`. If your are a developer, you probably have Git already installed. If not, visit the [official downloads](https://git-scm.com/downloads) page as it provides appropriate instructions for different operating systems.
@@ -241,7 +243,7 @@ You don't need to worry about any dependencies because the project setup for Doc
 
 **Useful commands**
 
-The code between your host and the Docker containers does not syncronize at this moment. If you need to change the code base and want to see the changes on the Docker container, you need to re-build the containers first. Run the following command on the root directory of the project:
+If you changed something in the `/docker-compose.yml` or something from inside the `/dockerfiles` directory, you need to re-build the containers first. Run the following command on the root directory of the project:
 
 ```bash
 $ docker-copose up --build
@@ -602,9 +604,6 @@ You can view the output here [http://localhost:3030/tests-coverage/](http://loca
 ## ToDo List
 
 - [ ] Improve the README.md file as much as possible.
-- [ ] Automatically synchronize the files between the host and the Docker containers and, vice versa.
-- [ ] Make possible the use of JWT to authorize API calls on the Swagger UI.
-- [ ] Persist data of Docker containers once they were down.
 
 ## Bibliograpy
 
