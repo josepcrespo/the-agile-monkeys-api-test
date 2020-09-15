@@ -91,6 +91,8 @@ As I said before, Feathers is the core framework for the project. I’ve decided
 
 Feathers can interact with any backend technology, supports over a dozen databases and works with any frontend technology like [React](https://en.reactjs.org/), [VueJS](https://vuejs.org/), [Angular](https://angular.io/), [React Native](https://reactnative.dev/), [Android](https://www.android.com/) or [iOS](https://www.apple.com/es/ios/). In this project, the interface with the database is done thanks to [Sequelize](https://sequelize.org/) (a promise-based [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping) for Node.js, that works with [Postgres](https://www.postgresql.org/), [MySQL](https://mysql.com/), [SQLite](https://www.sqlite.org/) and, [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server)). Sequelize also provides an effortless data validation and, much more. Feathers also can integrate with [Express](https://expressjs.com/) (a solid foundation currently used by almost any existing Node.js framework), something I decided to do, because it provides [better JSON error responses](https://docs.feathersjs.com/api/express.html#expresserrorhandler).
 
+Sequelize has choosen as the ORM for the application, because it allows to define the models schemas and, validate the fields. It provides model level validations and, will return the validation errors to the client in a nice consistent format.
+
 Feathers provides instant [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) functionality via [Services](https://docs.feathersjs.com/api/services.html), exposing both a RESTful API and real-time backend through [websockets](https://www.html5rocks.com/en/tutorials/websockets/basics/) automatically.
 
 And, to finish, it also provides easy integration with more than 180 [OAuth](https://oauth.net/) providers. In this case, the project uses [GitHub](https://github.com/) as a third party OAuth provider.
@@ -191,7 +193,7 @@ When you have this parameters at hand, you need to edit the `/config/default.jso
 "mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service"
 ```
 
-and, change it accordingly to your MySQL server connection parameters. The template is:
+and, change it accordingly to your local MySQL server connection parameters. The template is:
 
 ```json
 "mysql": "mysql://<user>:<password>@<ip_address>:<port_number>/<database_name>"
@@ -332,6 +334,8 @@ In order to log in with GitHub, visit [http://localhost:3030/oauth/github](http:
 
 > :exclamation: You need to enter [github.com](https://github.com/) and, logout from your session if you want to test the full "Login with GitHub" flow again. Or, you can just visit [http://localhost:3030/oauth/github](http://localhost:3030/oauth/github) all the times you want to obtain a new valid JWT, GitHub will not ask for authorization since you already granted before.
 
+> :exclamation: The authentication client will not use the token from the OAuth login if there is already another token logged in.
+
 ## REST API documentation
 
 ### Pre-configured users
@@ -436,7 +440,7 @@ Open the `/config/test.json` file. Find the following line on the file:
 "mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service_tests"
 ```
 
-and, change it accordingly to your MySQL server connection parameters. The template is:
+and, change it accordingly to your local MySQL server connection parameters. The template is:
 
 ```json
 "mysql": "mysql://<user>:<password>@<ip_address>:<port_number>/<database_name>"
@@ -609,9 +613,49 @@ You can view the output here [http://localhost:3030/tests-coverage/](http://loca
 
 ### Feathers
 
+- [Getting started with Feathers](https://docs.feathersjs.com/guides/basics/setup.html)
+	- [Quick start](https://docs.feathersjs.com/guides/basics/starting.html)
+	- [Generating an app](https://docs.feathersjs.com/guides/basics/generator.html)
+	- [Services](https://docs.feathersjs.com/guides/basics/services.html)
+	- [Hooks](https://docs.feathersjs.com/guides/basics/hooks.html)
+	- [Authentication with local strategy](https://docs.feathersjs.com/guides/basics/authentication.html#authentication)
+	- [Authentication with a third party public OAuth provider](https://docs.feathersjs.com/guides/basics/authentication.html#github-login-oauth)
+	- [Writing tests](https://docs.feathersjs.com/guides/basics/testing.html)
+- [Feathers API documentation](https://docs.feathersjs.com/api/)
+- [Feathers cookbook](https://docs.feathersjs.com/cookbook/)
+- [Why Feathers uses JWT for sessions](https://docs.feathersjs.com/help/faq.html#why-are-you-using-jwt-for-sessions)
+- [Better JSON errors with Feathers](https://docs.feathersjs.com/help/faq.html#why-am-i-not-getting-json-errors)
+- [Role and permissions with Feathers](https://github.com/feathersjs-ecosystem/feathers-permissions)
+- [Validation with Feathers](https://docs.feathersjs.com/help/faq.html#how-do-i-do-validation)
+- [File uploads in Feathers](https://docs.feathersjs.com/cookbook/express/file-uploading.html)
+- [Painless file upload with Feathers](https://medium.com/@mohammedalrowad/painless-file-upload-using-feathersjs-services-e994e4734e0c)
+- [Using multer to manage file uploads](https://riptutorial.com/es/node-js/example/14210/carga-de-un-solo-archivo-usando-multer)
+
 ### Sequelize
+
+- [Sequelize documentation](https://sequelize.org/master)
+- [Sequelize association hooks in Feathers](https://medium.com/@mohammedalrowad/feathersjs-association-hooks-with-sequelize-1825356b1843)
 
 ### Swagger
 
+- [Swagger UI](https://swagger.io/docs/open-source-tools/swagger-ui/)
+- [Feathers-swagger GitHub repository](https://github.com/feathersjs-ecosystem/feathers-swagger)
+	- [Swagger UI example](https://github.com/feathersjs-ecosystem/feathers-swagger#example-with-ui)
+	- [OpenAPI v3 example (the HTML)](https://github.com/feathersjs-ecosystem/feathers-swagger/blob/master/example/openapi-v3/security.html)
+	- [OpenAPI v3 example (the javascript)](https://github.com/feathersjs-ecosystem/feathers-swagger/blob/master/example/openapi-v3/security.js)
+- [Swagger UI authentication form plugin](https://www.npmjs.com/package/@mairu/swagger-ui-apikey-auth-form)
+
 ### Docker
+
+- [Dockerize a Feathers appliation](https://docs.feathersjs.com/cookbook/deploy/docker.html)
+- [Dockerize a Node.js application with MySQL (and dump)](https://jboka.de/2018/10/09/dockerize-node-application-with-mysql.html)
+- [Dockerizing a Node.js Web Application](https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application)
+- [How to crate a MySQL Instance with Docker Compose](https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee)
+- [Docker Compose healthcheck](https://docs.docker.com/compose/compose-file/#healthcheck)
+- [Docker Compose wait for container X before starting container Y](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y/41854997#41854997)
+- [How to use Docker Volumes to code faster](https://dzone.com/articles/tutorial-how-to-use-docker-volumes-to-code-faster)
+
+### Others
+
+- [Introduction to JSON Web Tokens](https://jwt.io/introduction/)
 
