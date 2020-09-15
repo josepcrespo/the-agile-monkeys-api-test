@@ -22,6 +22,10 @@ Table of contents:
 		+ [Swagger UI docs](#swagger-ui-docs)
 		+ [Run with Postman](#run-with-postman)
 	* [Tests](#tests)
+		+ [Running tests locally](#running-tests-locally)
+		+ [Runnig tests on Docker](#running-tests-on-docker)
+		+ [Coverage report in plain text format](#coverage-report-in-plain-text-format)
+		+ [Publishing new HTML coverage reports](#publishing-new-HTML-coverage-reports)
 	* [ToDo List](#todo-list)
 	* [Bibliography](#bibliography)
 		+ [Feathers](#feathers)
@@ -109,7 +113,7 @@ You need [Git](https://git-scm.com) >= `v2.24.3` and, [Docker Engine](https://do
 $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git &&
   cd the-agile-monkeys-api-test &&
   docker-compose build --no-cache --force-rm &&
-  docker-copose up
+  docker-compose up
 ```
 
 The project runs on [http://localhost:3030/](http://localhost:3030/).
@@ -224,7 +228,7 @@ Open a shell and navigate where you want to install the project. Then execute:
 $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git
 ```
 
-Enter into the project root directory and execute the following command for downloading the necessary _Docker images_ and, building the _Docker containers_:
+Make sure Docker is running on your machine. Enter into the project root directory and execute the following command for downloading the necessary _Docker images_ and, building the _Docker containers_:
 
 ```bash
 $ docker-compose build --no-cache --force-rm
@@ -300,7 +304,7 @@ CMD ["npm", "run", "start"]
 and, finally:
 
 ```bash
-$ docker-compose up -d
+$ docker-compose up -d --build
 ```
 
 Using the `-d` option, the server runs in background.
@@ -409,18 +413,41 @@ The collection is called `CRM service - API docs`.
 
 ## Tests
 
-The project comes full of tests (not 100%, but close). The tests are executed thanks to the [Mocha framework](https://mochajs.org/) and the [Node.js Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
+The project comes full of tests (not 100%, but close). The tests are executed thanks to the [Mocha framework](https://mochajs.org/) and the [Node.js native Assert module](https://nodejs.org/api/assert.html). After running tests, [Istanbul](https://istanbul.js.org/) creates a comprehensive report of the test coverage, directly in the console and as an [HTML page](http://localhost:3030/tests-coverage/).
+
+<mark>TODO: Istanbul coverage screenshot.</mark>
 
 There is no tests for CRUD operations because all this functionallity is already tested by the Feathers framework internally. Only a few edge cases are tested, for example, when a request interacts somehow with a custom Feathers Hook.
 
-For running the tests locally, move into your project’s root directory an execute:
+### Running tests locally
+
+Move into your project’s root directory an run:
 
 ```bash
 $ npm run test
 ```
-<mark>TODO: GIF example</mark>
 
-Here you can see the full output of the tests, all passing fine:
+### Runnig tests on Docker
+
+> :warning: Remember to stop any services you may have running locally on your host machine to avoid unexpected behaviors and interferences with the Docker containers configurations.
+
+Move into your project’s root directory.
+
+Start the projet's Docker containers if not running yet:
+
+```bash
+$ docker-compose up
+```
+
+and, then:
+
+```bash
+$ docker exec -it the-agile-monkeys-api-test_node_server_1 npm run test
+```
+
+### Coverage report in plain text format
+
+After running the tests, you can see a coverage report, in plain text format, thanks to Istanbul. Here you can see the full output after running the tests, all passing fine:
 
 ```bash
   Feathers application tests
@@ -526,6 +553,31 @@ All files                      |   88.15 |    71.43 |   79.07 |   88.15 |
   users.service.js             |      92 |       50 |     100 |      92 | 39-40
 -------------------------------|---------|----------|---------|---------|-------------------
 ```
+
+### Publishing new HTML coverage reports
+
+The project already comes with coverage reports in HTML format. Only execute this command if you changed something in your tests and wants to publish the new reports. Coverage reports in HTML format can be re-published to the `/public/tests-coverage/` directory, following this steps:
+
+First move into your project’s root directory.
+
+For running locally:
+
+```bash
+$ npm run publish-coverage
+```
+or, alternatively using Docker, start the projet's Docker containers if not running yet:
+
+```bash
+$ docker-compose up
+```
+
+and, then:
+
+```bash
+$ docker exec -it the-agile-monkeys-api-test_node_server_1 npm run publish-coverage
+```
+
+You can view the output here [http://localhost:3030/tests-coverage/](http://localhost:3030/tests-coverage/).
 
 ## ToDo List
 

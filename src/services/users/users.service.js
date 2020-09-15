@@ -32,15 +32,19 @@ module.exports = function (app) {
 
   service.hooks(hooks);
 
-  initialUsers.forEach(user => {
-    service.find({ query: { email: user.email } })
-      .then(result => {
-        if (result.total === 0) {
-          service.create(user);
-          console.log('New user created:', user);
-        }
-      });
-  });
+  // Initializes the DB with the `initialUsers` array, in case the app is
+  // connected to the `mysql` server defined into the default.json file.
+  if (process.env.NODE_ENV !== 'test') {
+    initialUsers.forEach(user => {
+      service.find({ query: { email: user.email } })
+        .then(result => {
+          if (result.total === 0) {
+            service.create(user);
+            console.log('New user created:', user);
+          }
+        });
+    });
+  }
 
   // https://github.com/alt3/sequelize-to-json-schemas#usage
   const jsonSchemaManager = app.get('jsonSchemaManager');

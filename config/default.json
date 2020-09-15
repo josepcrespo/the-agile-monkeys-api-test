@@ -35,5 +35,5 @@
       }
     }
   },
-  "mysql": "mysql://root:secret@mysql_db:3306/the_agile_monkeys_api_test"
+  "mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service"
 }

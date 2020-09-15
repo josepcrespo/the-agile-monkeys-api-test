@@ -189,7 +189,6 @@
           .querySelector('button[type="submit"].auth.authorize');
         if (authBtn && authBtn.textContent === 'Authorize') {
           authBtn.remove();
-          console.log('The "Authorize" button, has been removed from auth form.');
         }
       }, 100);
     }
@@ -204,10 +203,6 @@
 
       if (element) {
         element.remove();
-        console.log(
-          'The "Value" label and, his associated input,' +
-          ' have been removed from auth form.'
-        );
       }
     }
 
@@ -224,7 +219,6 @@
             removeAuthBtn();
           }, 100);
         });
-        console.log('"click" event added to the "Logout" button from auth form.');
       }
     }
 

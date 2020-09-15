@@ -1,3 +1,4 @@
 {
-  "nedb": "../test/data"
+  "port": 8998,
+  "mysql": "mysql://root:secret@mysql_server:3306/the_agile_monkeys_crm_service_tests"
 }

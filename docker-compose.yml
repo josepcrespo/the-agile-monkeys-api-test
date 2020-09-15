@@ -1,16 +1,16 @@
 version: '2.4'
 
 services:
-    node_app:
+    node_server:
         image: node:lts-alpine
         restart: always
         build:
             context: ./
             dockerfile: ./dockerfiles/node_runtime/Dockerfile
         environment:
-            - DATABASE_HOST=mysql_db
+            - DATABASE_HOST=mysql_server
         depends_on:
-            mysql_db:
+            mysql_server:
                 condition: service_healthy
         ports:
             # <Port exposed> : <Node.js Port running inside container>
@@ -18,12 +18,13 @@ services:
         expose:
             # Opens port 3030 on the container
             - '3030'
-    mysql_db:
+    mysql_server:
         image: mysql:5.7.31
+        restart: always
         build: ./dockerfiles/mysql_database
         environment:
             MYSQL_ROOT_PASSWORD: secret
-            MYSQL_DATABASE: the_agile_monkeys_api_test
+            MYSQL_DATABASE: the_agile_monkeys_crm_service
         ports:
             # <Port exposed> : <MySQL Port running inside container>
             - '3306:3306'
