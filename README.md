@@ -421,6 +421,10 @@ Swagger UI allows anyone — be it your development team or your end consumers �
 
 You can visit [http://localhost:3030/docs/swagger-ui.html](http://localhost:3030/docs/swagger-ui.html) to see it in action and, perform almost any operation available on the API or, just explore it. Just keep in mind that all endpoinds require authentication, so you need to provide your credentials using the “Authorize” button placed on the top right of the page.
 
+Here you have an example of authenticating with local strategy and, retrieving a users list using Swagger UI:
+
+![Get a users list with Swagger UI](readme_images/swagger-ui-example.gif)
+
 > :warning: **You need a local client for consuming APIs**, such as _Postman API Client_ or _Insmonia Core_ **for using the JWT provided by GitHub Oauth to authenticate API requests**.
 
 > :warning: **You need a local client for consuming APIs**, such as _Postman API Client_ or _Insmonia Core_ **to test image upload in the `/customers` service**.
