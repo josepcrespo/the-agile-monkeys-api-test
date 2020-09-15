@@ -439,7 +439,7 @@ The collection is called `CRM service - API docs`.
 
 > :eyes: Remember to set a valid JWT on the _Authorization_ tab of a Postman request (if the request requires authentication) using the _Bearer token_ option.
 
-![Creating a customer with a photo, using Postman](read_images/new-customer-with-photo-using-postman.gif)
+![Creating a customer with a photo, using Postman](readme_images/new-customer-with-photo-using-postman.gif)
 
 ## Tests
 
