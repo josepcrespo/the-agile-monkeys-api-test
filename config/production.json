@@ -1,4 +1,13 @@
 {
   "host": "theam-crm-service.herokuapp.com",
+  "authentication": {
+    "oauth": {
+      "redirect": "/",
+      "github": {
+        "key": "8400ad089b5cbd3eec4e",
+        "secret": "47b10627d4426ce313ba2380dc66ba1597d47496"
+      }
+    }
+  },
   "mysql": "mysql://b815d8b8f82baf:520b63f4@us-cdbr-east-02.cleardb.com/heroku_a5602005d50d859?reconnect=true"
 }
