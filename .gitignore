@@ -112,7 +112,6 @@ data/
 
 # Customers photos
 public/images/customers/*
-
 !public/images/customers/.deploy-empty-folder-on-heroku
 
 # Istanbul Code Coverage output
