@@ -1,4 +1,4 @@
-Live app on [Heroku](https://heroku.com/):
+Live app on [Heroku](https://heroku.com/) 🕺
 
 [https://theam-crm-service.herokuapp.com](https://theam-crm-service.herokuapp.com)
 
@@ -124,6 +124,8 @@ $ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git &&
 ```
 
 The project runs on [http://localhost:3030/](http://localhost:3030/).
+
+You can also check [a live version running on Heroku](https://theam-crm-service.herokuapp.com/). You can not run the tests, because is a production deployment. Anyway, you can check the current tests coverage at [https://theam-crm-service.herokuapp.com/tests-coverage/](https://theam-crm-service.herokuapp.com/tests-coverage/) and, do everything else including the creation of a new `customer` with photo (that implies the upload of the file to the server).
 
 ## Project installation
 
