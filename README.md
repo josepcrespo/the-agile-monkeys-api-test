@@ -31,7 +31,6 @@ Table of contents:
 		+ [Runnig tests on Docker](#running-tests-on-docker)
 		+ [Coverage report in plain text format](#coverage-report-in-plain-text-format)
 		+ [Publishing new HTML coverage reports](#publishing-new-HTML-coverage-reports)
-	* [ToDo List](#todo-list)
 	* [Bibliography](#bibliography)
 		+ [Feathers](#feathers)
 		+ [Sequelize](#sequelize)
