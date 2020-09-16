@@ -34,7 +34,6 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
-    "build": "npm install",
     "clean-coverage": "shx rm -rf public/tests-coverage/",
     "coverage": "nyc --reporter=html --reporter=text npm run mocha",
     "dev": "nodemon src/",
