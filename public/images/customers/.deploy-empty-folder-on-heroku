@@ -1,0 +1,5 @@
+Empty directories doesn't deploy on Heroku, that's the reason for this file.
+
+We also added the following rule to the `.gitignore` file:
+
+!public/images/customers/
