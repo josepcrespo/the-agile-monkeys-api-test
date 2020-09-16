@@ -1,5 +1,4 @@
 {
   "host": "theam-crm-service.herokuapp.com",
-  "port": "PORT",
   "mysql://b815d8b8f82baf:520b63f4@us-cdbr-east-02.cleardb.com/heroku_a5602005d50d859?reconnect=true"
 }
