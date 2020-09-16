@@ -4,8 +4,8 @@
     "oauth": {
       "redirect": "/",
       "github": {
-        "key": "8400ad089b5cbd3eec4e",
-        "secret": "47b10627d4426ce313ba2380dc66ba1597d47496"
+        "key": "AUTHENTICATION_OAUTH_GITHUB_KEY",
+        "secret": "AUTHENTICATION_OAUTH_GITHUB_SECRET"
       }
     }
   },
