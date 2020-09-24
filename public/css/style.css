@@ -1,0 +1,209 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+  font-weight: 400;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+body {
+  opacity: 0;
+  transition: 1s opacity;
+  transition-delay: 1s;
+}
+
+body.fade-in-on-window-load {
+  opacity: 1;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.scroll-snap-container {
+  max-height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+main {
+  margin: 0 auto;
+}
+
+.content-box {
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+.content-box,
+.content-box-full-height {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 100px 20px 0;
+}
+
+.content-box-full-height {
+  padding-bottom: 100px;
+}
+
+@media only screen and (max-height: 568px) {
+  .content-box {
+    padding-top: 20px
+  }
+}
+
+img.logo {
+  display: block;
+  margin: 0 auto 30px;
+  max-width: 100%;
+}
+
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 100;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+div.content-box p {
+  text-align: center;
+  margin-top: 25vh;
+}
+
+.fade-in-animation {
+  animation: fadeInAnimation ease 3s infinite;
+  -webkit-animation: fadeInAnimation ease 3s infinite;
+  -moz-animation: fadeInAnimation ease 3s infinite;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+footer p {
+  font-weight: 300;
+  font-size: 1.0em;
+}
+
+.cta-btn-container {
+  display: grid;
+}
+
+a {
+  color: #33CCFF;
+}
+
+a.cta-btn {
+  text-decoration: none;
+  display: inline-flex;
+  margin: 0 auto 30px;
+  line-height: 32px;
+  font-size: 24px;
+  border-radius: 34px;
+  padding: 10px 15px;
+  color: white;
+}
+
+a.cta-btn:hover,
+a.cta-btn:focus {
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, .25);
+}
+
+a > img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+a.oauth-login-btn>img {
+  filter: invert(1) contrast(2);
+}
+
+a.cta-btn.oauth-login-btn {
+  background-color: black;
+}
+
+a.cta-btn.swagger-ui-docs-btn {
+  background-color: #85EA2D;
+  color: #1A3B45;
+}
+
+a.cta-btn.tests-coverage-btn {
+  background-color: #F8DE10;
+  color: black;
+}
+
+code {
+  display: block;
+  margin-bottom: 15px;
+  overflow-wrap: break-word;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: darkgray;
+  background-color: #2c3e50;
+}
+
+blockquote {
+  margin-bottom: 15px;
+}
+
+em {
+  background-color: rgba(44, 62, 80, .25);
+  padding: 0 5px 2px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.display-grid {
+  display: grid;
+}
+
+.postman-run-button {
+  background: none !important;
+  display: inline-table !important;
+  text-align: center;
+  height: auto !important;
+  width: 100% !important;
+}
+
+.postman-run-button a {
+  background-color: #F47024;
+}
+
+input[type="button"] {
+  cursor: pointer;
+  display: block;
+  margin: 30px auto 0;
+  padding: 10px 15px;
+}
