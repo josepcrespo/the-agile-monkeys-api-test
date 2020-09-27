@@ -25,10 +25,10 @@ Table of contents:
 		+ [Pre-configured users](#pre-configured-users)
 		+ [Feathers CRUD](#feathers-crud)
 		+ [Swagger UI docs](#swagger-ui-docs)
-		+ [Run with Postman](#run-with-postman)
+		+ [Run with Postman API Client](#run-with-postman-api-client)
 	* [Tests](#tests)
 		+ [Running tests locally](#running-tests-locally)
-		+ [Runnig tests on Docker](#running-tests-on-docker)
+		+ [Running tests on Docker](#running-tests-on-docker)
 		+ [Coverage report in plain text format](#coverage-report-in-plain-text-format)
 		+ [Publishing new HTML coverage reports](#publishing-new-HTML-coverage-reports)
 	* [Bibliography](#bibliography)
@@ -474,7 +474,7 @@ Move into your project’s root directory an run:
 $ npm run test
 ```
 
-### Runnig tests on Docker
+### Running tests on Docker
 
 > :warning: Remember to stop any services you may have running locally on your host machine to avoid unexpected behaviors and interferences with the Docker containers configurations.
 
@@ -627,7 +627,7 @@ $ docker exec -it the-agile-monkeys-api-test_node_server_1 npm run publish-cover
 
 You can view the output here [http://localhost:3030/tests-coverage/](http://localhost:3030/tests-coverage/).
 
-## Bibliograpy
+## Bibliography
 
 ### Feathers
 
