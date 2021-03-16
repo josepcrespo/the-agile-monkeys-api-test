@@ -25,10 +25,10 @@ Table of contents:
 		+ [Pre-configured users](#pre-configured-users)
 		+ [Feathers CRUD](#feathers-crud)
 		+ [Swagger UI docs](#swagger-ui-docs)
-		+ [Run with Postman](#run-with-postman)
+		+ [Run with Postman API Client](#run-with-postman-api-client)
 	* [Tests](#tests)
 		+ [Running tests locally](#running-tests-locally)
-		+ [Runnig tests on Docker](#running-tests-on-docker)
+		+ [Running tests on Docker](#running-tests-on-docker)
 		+ [Coverage report in plain text format](#coverage-report-in-plain-text-format)
 		+ [Publishing new HTML coverage reports](#publishing-new-HTML-coverage-reports)
 	* [Bibliography](#bibliography)
@@ -45,7 +45,7 @@ A REST API to manage customer data for a small shop.
 
 ## Disclaimer
 
-This is a demo project to provide an example of my skills for building a [REST compliant API](https://en.wikipedia.org/wiki/Representational_state_transfer). This time, I’ve decided to use [Feathers](https://feathersjs.com/), a [Node.js](https://nodejs.org/) framework oriented for building real-time applications and REST APIs. I've made an extensive use of the latest version of [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) on the backend and, used a few cool features of [Vue.js](https://vuejs.org/) on the frontend. Other modern development tools used are: [NPM](https://www.npmjs.com/) (the Node.js package manager), [Sequelize](https://sequelize.org/) (a promise-based Node.js ORM for relational databases), [MySQL](https://www.mysql.com/) server (for data storage), [Docker](https://www.docker.com/) (helps to create the necessary environment for developing or running the application) and, the [Swagger](https://swagger.io/) toolset (for exploring and interacting with the API). And, of course, I’ve used [Git](https://git-scm.com/) for code control version and, a basic knowledge of the [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell) for interacting with the respective [CLI (command-line interface)](https://en.wikipedia.org/wiki/Command-line_interface) for Git, Docker and, Feathers. The full project has been developed on [macOS](https://www.apple.com/es/macos/what-is/) [Catalina](https://en.wikipedia.org/wiki/MacOS_Catalina) (v10.15.6) on top of a [MacBook Air mid 2012](https://support.apple.com/kb/SP670?viewlocale=en_US).
+This is a demo project to provide an example of my skills for building a [REST compliant API](https://en.wikipedia.org/wiki/Representational_state_transfer). This time, I’ve decided to use [Feathers](https://feathersjs.com/), a [Node.js](https://nodejs.org/) framework oriented for building real-time applications and REST APIs. I've made an extensive use of the latest version of [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) on the backend and, used a few cool features of [Vue.js](https://vuejs.org/) on the frontend. Other modern development tools used are: [NPM](https://www.npmjs.com/) (the Node.js package manager), [Sequelize](https://sequelize.org/) (a promise-based Node.js ORM for relational databases), [MySQL](https://www.mysql.com/) server (for data storage), [Docker](https://www.docker.com/) (helps to create the necessary environment for developing or running the application) and, the [Swagger](https://swagger.io/) toolset (for exploring and interacting with the API). And, of course, I’ve used [Git](https://git-scm.com/) for code control version and, a basic knowledge of the [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell) for interacting with the respective [CLI (command-line interface)](https://en.wikipedia.org/wiki/Command-line_interface) for Git, Docker and, Feathers. The full project has been developed on [macOS](https://www.apple.com/es/macos/what-is/) [Catalina](https://en.wikipedia.org/wiki/MacOS_Catalina) (v10.15.6) on top of a [MacBook Air mid 2012](https://support.apple.com/kb/SP670?viewlocale=en_US&locale=es_ES).
 
 You can use this project for your needs under your total responsibility. You can, for example, fork it and, use it as a foundation for your own project if you found it useful.
 
@@ -474,7 +474,7 @@ Move into your project’s root directory an run:
 $ npm run test
 ```
 
-### Runnig tests on Docker
+### Running tests on Docker
 
 > :warning: Remember to stop any services you may have running locally on your host machine to avoid unexpected behaviors and interferences with the Docker containers configurations.
 
@@ -627,7 +627,7 @@ $ docker exec -it the-agile-monkeys-api-test_node_server_1 npm run publish-cover
 
 You can view the output here [http://localhost:3030/tests-coverage/](http://localhost:3030/tests-coverage/).
 
-## Bibliograpy
+## Bibliography
 
 ### Feathers
 
