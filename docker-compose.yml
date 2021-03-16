@@ -13,7 +13,9 @@ services:
             mysql_server:
                 condition: service_healthy
         volumes:
+            # https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes
             - './:/usr/src/app'
+            - '/usr/src/app/node_modules'
         ports:
             # <Port exposed> : <Node.js Port running inside container>
             - '3030:3030'
