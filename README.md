@@ -253,7 +253,7 @@ You don't need to worry about any dependencies because the project setup for Doc
 If you changed something in the `/docker-compose.yml` or something from inside the `/dockerfiles` directory, you need to re-build the containers first. Run the following command on the root directory of the project:
 
 ```bash
-$ docker-copose up --build
+$ docker-compose up --build
 ```
 
 If you want to stop the containers running the project, run this command on the root directory of the project:
