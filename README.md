@@ -116,10 +116,7 @@ Also, it’s worth to mention that I’ve followed the security considerations d
 You need [Git](https://git-scm.com) >= `v2.24.3` and, [Docker Engine](https://docker.com/) >= `v18.06.0`.
 
 ```bash
-$ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git &&
-  cd the-agile-monkeys-api-test &&
-  docker-compose build --no-cache --force-rm &&
-  docker-compose up
+$ git clone https://github.com/josepcrespo/the-agile-monkeys-api-test.git && cd the-agile-monkeys-api-test && docker-compose build --no-cache --force-rm && docker-compose up
 ```
 
 The project runs on [http://localhost:3030/](http://localhost:3030/).
